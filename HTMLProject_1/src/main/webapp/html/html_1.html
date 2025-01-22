@@ -1,0 +1,108 @@
+<!-- 
+웹 개발 => 사용 도구
+1) 브라우저 : 크롬, 파이어폭스, IE
+
+시멘텍 태그 : 쉽게 알아볼 수 있게 만든 태그
+	예) <object> 	<embed>
+		=> 동영상		
+		=> <video>
+		=> <audio>
+2) 웹 서버
+	사용자(브라우저) => 요청
+					| 웹서버 : 요청 처리에 대한 파일 찾기 (브라우저가 요청 후 웹 서버에서 응답)
+							=> 요청한 브라우저로 응답
+	웹 서버 : 아파치 | IIS
+		test 용 웹서버 : 톰캣
+3) 웹 애플리케이션 서버 : 웹 서버는 자바를 컴파일하는 기능이 없다
+						이미지, HTML, XML...
+						톰캣 : 자바를 HTML 로 컴파일
+4) 데이터베이스 : 오라클 / MySQL
+	=> 브라우저로 전송할 데이터가 저장된 곳
+5) HTML 의 편집기
+	이클립스, VsCode
+6) 에러 출력
+	파일이 없는 경우 : 404
+	자바 소스 오류 : 500
+	서버 접근 거부 : 403
+	전송값이 틀린 경우 : 412
+	GET / POST 가 다른 경우 : 400
+	한글 변환이 틀린 경우 : 415
+7) 사용하는 언어의 역할
+	1. HTML / CSS
+	2. JavaScript : 브라우저 안에서 사용자 요청에 대한 이벤트 처리
+		=> 애니메이션 / 동적 페이지
+		=> 라이브러리 : JQuery(Ajax), VueJS, ReactJS, Next
+	3. Java : 요청처리, 데이터 관리
+	4. Oracle : 공유하는 데이터를 저장하는 공간
+
+HTML : 웹 페이지 구성 => 화면 UI
+		=> 웹에서는 파일(X), 페이지(O)
+CSS : 화면 디자인 (스타일 적용) codepen
+JS : 사용자 이벤트 처리
+
+HTML 의 기본 용어
+---
+	태그 + 속성
+	<meta charset = "UTF-8">
+	------------------------
+		  | 속성 => 멤버 변수
+	| 태그명 => class
+	
+	1) 태그의 종류
+		HTML
+		  -- ML(MarkUp Language) : <> => 사용자 정의가 없어 제공하는 태그만 사용해야 한다
+	  
+	  	여는 태그 : <tag>
+	  	닫는 태그 : </tag>
+	  		=> <tag> print </tag>
+	  	독립 태그 : <tag/>
+	  		=> <tag attribute="print">
+	  		=> <img src="file_name">
+	  		=> <a href="이동 할 파일명">
+  		
+  		값을 가지고 있는 태그
+  			<tag>value</tag>
+  			ex)
+  				 <h1>Hello</h1> => 제목 출력(heading)
+  				 <p>Hello</p> => 단락 나누기(두 줄)
+  				 <font color="red">Hello</font>
+  				 	   | attribute
+		값이 없는 태그
+			<br> : 다음 줄에 출력
+			<img src="이미지 파일명"> : 속성에 값을 추가
+			 --- ---
+			 태그 속성
+			<a href="이동 할 파일명"> : 속성에 값을 추가
+			 - ----
+			태그 속성
+			** 태그, 속성명은 소문자
+			** 번역 하는 방식 : 인터프리터
+				=> 한 줄씩 읽어서 번역
+				=> 단점 : 에러 메세지를 출력하지 않는다
+			** 태그 / 속성
+				1) 태그 => 무슨 모양을 출력
+				2) 속성은 어떤 것이 이는 지
+				3) inline / block
+				   --------------
+				   			| System.out.println()
+		   		   | System.out.print()
+ -->					
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type=button value="1번">
+	<input type=button value="2번">
+	<input type=button value="3번">
+	<input type=button value="4번">
+	<input type=button value="5번">
+	<h1>Hello</h1>
+	<h1>Hello</h1>
+	<h1>Hello</h1>
+	<h1>Hello</h1>
+	<h1>Hello</h1>
+</body>
+</html>

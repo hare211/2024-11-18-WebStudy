@@ -1,0 +1,45 @@
+<!--
+CTRL + SHIFT + / : 주석 
+<!DOCTYPE html> : import 에 비유 가능 => HTML5 문서를 읽어 온다
+	=> HTML5 문서를 제작한 파일 : loose.dtd
+		=> <!ELEMENT html (head, body))>
+		=> <!ELEMENT head (meta*, title, script*, style*, link*))>
+			meta* : <meta> 는 0 번이상 사용 가능
+<html> : html 문서 시작 => 생략 시 body 로 인식
+	<head> : 설정 파일 등록(화면 출력 X)
+		<meta charset="UTF-8">
+		----- 한글 변환, 시작과 동시에 화면 이동, 키워드 등록, 모바일 크기 지정
+		<title>Insert title here</title>
+		------ 브라우저 제목 출력
+		<script> : 내부 Script
+		<link> : 외부 CSS => 파일로 제작
+		<style> : 내부 CSS
+		=> js 파일 제작 / css 파일 제작
+			----------------------- 여러 개 HTML 에 적용
+	</head>
+	<body>
+	------ 브라우저에 출력하는 태그 설정
+	</body> : 화면 UI 종료
+</html> : HTML 문서 종료
+ -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>GOOD</title>
+		<style type="text/css">
+			h3 {
+				color: red;
+				background: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			function click2() {
+				alert("Hello JavaScript");
+			}
+		</script>
+	</head>
+	<body>
+		<h3 onclick="click2()">Hello HTML</h3>
+	</body>
+</html>
