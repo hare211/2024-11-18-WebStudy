@@ -1,0 +1,44 @@
+<!-- 
+----------------------------------------
+	header : 로그, 검색기, 메뉴
+----------------------------------------
+로그인	|
+부메뉴	|
+aside	|	section : 실제 출력
+		|
+----------------------------------------
+	회사정보 : footer
+----------------------------------------
+
+embed : 동영상만 실행
+iframe : 동영상 실행 / 다른 HTML 을 include
+
+=> src / width / height / style="widht/height"
+
+태그
+	1. 태그명 숙지 -> 출력 모양 숙지 -> 태그 사이에 값이 들어가는 지, 속성에 값이 들어가는 지 숙지 -> 기본 속성이 어떤 것이 있는 지 확인
+ -->
+
+<!DOCTYPE html> 
+<html> 
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<center>
+		<table border=1 bordercolor=black width="800" height="600" cellspacing="0">
+			<tr>
+				<td colspan="2" height="100"><iframe src="header.html" style="width: 100%"></iframe></td>
+			</tr>
+			<tr>
+				<td width=150 height="400"><iframe src="aside.html"></iframe></td>
+				<td width=600 height="400"><iframe src="section.html" style="width: 600px; height: 380px;"></iframe></td>
+			</tr>
+			<tr>
+				<td colspan="2" height="100"><iframe src="footer.html" style="width:100%";></iframe></td>
+			</tr>
+		</table>
+	</center>
+</body>
+</html>

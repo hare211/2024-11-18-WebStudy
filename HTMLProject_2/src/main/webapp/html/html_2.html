@@ -1,0 +1,66 @@
+<!-- 
+table 태그
+--------- 제목 / 데이터 출력
+
+<table>
+|
+<tr> : 한 줄 
+|		|
+<th>	<td>
+제목		데이터 출력
+
+<tr>			</tr> 한 줄
+	<th>번호</th> 
+	<th>제목</th>
+	<th>이름</th>			=> 한 줄에 세 칸
+<tr>			</tr> 두 줄...
+	<td>1</td>
+	<td>게시판</td>
+	<td>홍길동</td>
+	
+	colspan / rowspan
+	가로 병합	  세로 병합
+	
+	<thead>
+	<tbody>
+	<tfoot>
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>Table 태그 연습</h3>
+	<table border=1 width=500 bordercolor=black cellspcaing="10"	cellpadding="100">
+		<thead>
+			<!-- 한 번만 수행은 HTML 은 상관 없다 / 단, VueJS, Reach 에서 사용 시 CSS 적용 X -->
+			<tr>
+				<th>학번</th>
+				<th>이름</th>
+				<th>국어</th> 
+				<th>영어</th>
+				<th>수학</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td align="center">1</td>
+				<!-- td : 일반 문자 / 왼쪽 정렬 -->
+				<td align="center">홍길동</td>
+				<td>85</td>
+				<td>89</td>
+				<td>90</td>
+			</tr>
+		</tbody>
+		<tr>
+			<td align="center">2</td>
+			<td align="center">홍길동</td>
+			<td>82</td>
+			<td>86</td>
+			<td>93</td>
+		</tr>
+	</table>
+</body>
+</html>
