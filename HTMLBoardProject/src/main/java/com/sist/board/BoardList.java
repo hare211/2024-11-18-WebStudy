@@ -82,9 +82,11 @@ public class BoardList extends HttpServlet {
 		out.println("</tr>");
 		// 출력 위치
 		for (BoardVO vo : list) {
+			// <a> : 화면만 이동 <form> : 데이터 전송과 동시에 화면 이동
 			out.println("<tr>");
 			out.println("<td width=10% align=center>" + vo.getNo() + "</td>");
-			out.println("<td width=45%>" + vo.getSubject());
+			 // a 태그 이용하여 상세보기 화면으로 이동
+			out.println("<td width=45%><a href=BoardDetail?no=" + vo.getNo() + ">" + vo.getSubject() + "</a>");
 			out.println("&nbsp;");
 			if (today.equals(vo.getDbday())) {
 				out.println("<sup><img src=image/new.gif></sup>");
@@ -96,7 +98,7 @@ public class BoardList extends HttpServlet {
 			out.println("</tr>");
 		}
 		out.println("</table>");
-		out.println("<table class=table_content width=700>");
+		out.println("<table class=table_content width=600>");
 		out.println("<tr>");
 		out.println("<td align=left>");
 		out.println("<select>");

@@ -1,0 +1,119 @@
+<!-- 
+	1. 태그 형식
+	<html>
+	 <head>
+	 	=> CSS
+	 		내부 : 한 파일에서만 설정
+	 			<style>
+	 				태그 {}
+ 				</style>
+			외부 : 여러 개 파일에서 사용
+				<link rel="stylesheed" href="파일명">
+			인라인
+				<h1 style="">
+	 	=> JavaScript : 화면 출력이 아니라 설정 파일
+	 		내부
+	 			<script>
+	 				function func_name() {
+	 				
+	 				}
+ 				</script>
+			외부
+				<script src="파일명"></script> => 원격도 가능
+			인라인
+				<input type=button onclick="javascript:history.back()>
+ 	 </head>
+ 	 <body>
+ 	 	화면 출력 태그
+ 	 		시작 : <a>
+ 	 		종료 : </a>
+ 	 		단독 : <br>, <img>, <input>...
+ 	 		
+ 	 		제목 출력 heading
+ 	 			<h1> ~ <h6> : 한 줄 전체를 차지(block 속성 포함)
+ 			글자 관련
+ 				<b>(or <strong>) : bold
+				<sup> : 위 첨자
+				<hr> : 수평선
+				<ins> : 밑줄
+				<del> : 취소선
+				<p> : 단락
+				<pre> : 있는 그대로 출력
+			링크 관련
+				<a> : 속성 href="이동할 파일명"
+						  target="_self || _blank" (self -> DEFAULT)
+			멀티 미디어
+				<img> : 이미지 출력
+						속성 : src="이미지 파일명"(png, jpg, gif, url)
+						    : width, height
+						    : title 풍선 도움말
+						    : width 만 지정하면 height 는 자동으로 처리
+			    <embed> : 동영상 출력
+			    		속성 : src="동영상파일명 || URL"
+			    		    : width, height
+    		    <iframe> : HTML 안에서 다른 HTML 을 연결
+   		    목록 태그
+   		    	<ul>
+   		    	|
+   		    	<li> : 데이터 출력
+   		    		 : 메뉴, 이미지 목록
+	    		<dl>
+	    		|
+	    		<dt> : 타이틀
+	    		<dd> : 실제 데이터 (상세보기...)
+	    		
+	    		<table>
+	    		|
+	    		<tr>
+	    		|
+	    		<th> or <td>
+    		입력창
+    			<input> 
+    				type="text" : 한 줄 문자열
+    					="password" : 비밀번호
+    					="file" : 파일 첨부창 (업로드 / 다운로드)
+    					number : Spinner (숫자 / 출력)
+    					date : 달력
+    					range : slider (볼륨 조절창)
+    					button : 일반 버튼(기능 없음) -> 자바스크립트로 처리
+    					submit(image / button) : 전송 버튼
+    					radio : radio 버튼
+    					checkbox : 체크박스
+    			<select> : combo box
+    			|
+    			<option>
+    			<textarea> : multi line
+   			데이터 전송
+   				<form> : 입력된 데이터를 한 번에 전송
+   					속성 : method="get || post" (데이터 전송 방식)
+   						: sction="데이터를 받을 servlet or jsp 지정"
+   							*** HTML 은 화면 출력만 가능 -> 데이터를 주고 받는 것 불가(데이터 주고 받아야 할 시 servlet 으로 코드 작성)
+			화면 분할
+				<div> : 세로 분할
+				<span> : 원하는 영역만 CSS or 가로 분할 or 부메뉴
+				시멘텍 태그
+				<header> <nav> <section> <aside> <footer>
+ 	 </body>
+ 	</html>
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<figure>
+		<img src="m1.jpg" width="150" height="200">
+		<figcaption>
+		영화제목
+		</figcaption>
+	</figure>
+	<br>
+		<fieldset>
+			<legend>개인정보</legend>
+			<label for="name">이름</label>
+			<input type=text size=20 id="name">
+		</fieldset>
+</body>
+</html>

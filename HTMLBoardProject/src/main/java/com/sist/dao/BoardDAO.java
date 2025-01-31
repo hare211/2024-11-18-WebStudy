@@ -1,6 +1,5 @@
 package com.sist.dao;
 
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -130,7 +129,15 @@ public class BoardDAO {
 		
 		try {
 			getConnection();
-			String sql = "SELECT subject, name, content, TO_CHAR(regdate, 'YYYY-MM-DD'), hit "
+			String sql = "UPDATE htmlboard "
+					   + "SET hit = hit + 1 "
+					   + "WHERE no = " + no; // 조회수 증가
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+			sql = "SELECT no, name, subject, content, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS'), hit "
 					   + "FROM htmlboard "
 					   + "WHERE no = " + no;
 			
@@ -140,11 +147,12 @@ public class BoardDAO {
 			
 			rs.next();
 			
-			vo.setSubject(rs.getString(1));
+			vo.setNo(rs.getInt(1));
 			vo.setName(rs.getString(2));
-			vo.setContent(rs.getString(3));
-			vo.setDbday(rs.getString(4));
-			vo.setHit(rs.getInt(5));
+			vo.setSubject(rs.getString(3));
+			vo.setContent(rs.getString(4));
+			vo.setDbday(rs.getString(5));
+			vo.setHit(rs.getInt(6));
 			
 			rs.close();
 			
@@ -178,4 +186,39 @@ public class BoardDAO {
 	}
 	// 수정
 	// 삭제
+	public boolean boardDelete(int no, String pwd) {
+		boolean bCheck = false;
+		
+		try {
+			getConnection();
+			String sql = "SELECT pwd "
+					   + "FROM htmlboard "
+					   + "WHERE no = " + no;
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			String db_pwd = rs.getString(1);
+			
+			rs.close();
+			
+			if (pwd.equals(db_pwd)) {
+				bCheck = true;
+				sql = "DELETE FROM htmlboard "
+					+ "WHERE no = " + no;
+				
+				ps = conn.prepareStatement(sql);
+				
+				ps.executeUpdate();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return bCheck;
+	}
 }
