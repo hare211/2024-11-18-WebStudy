@@ -12,7 +12,22 @@ import java.text.SimpleDateFormat;
 import com.sist.dao.*;
 import com.sist.vo.*;
 import java.util.*;
-
+/*
+ 	servlet : 동적 페이지 => 한 개의 파일에서 데이터 변경이 가능 
+ 		장점 : 보안 뛰어나다, 소스를 감출 수 있다
+ 		단점 : 소스 변경 시마다 컴파일을 해서 출력
+ 			=> JSP 를 통해서 컴파일 없이 실행
+ 				단점 : 보안에 취약, 소스를 감출 수 없다
+ 	html : 정적 페이지 => 데이터 변경이 안된다
+ 	
+ 	servlet 메서드
+ 		init() : 초기화
+ 		destroy() : 화면 변경, 새로고침 => 메모리 회수
+ 		doGet() : 사용자 요청(GET), 단순한 검색에 많이 쓰임(화면 UI), DEFAULT, <a> location.href="", sendRedirect() 화면 변경
+ 		doPost() : 사용자 요청(POST), 로그인 등에 많이 쓰임, <form>
+ 		service() : GET, POST 를 동시에 처리
+ 
+ */
 @WebServlet("/BoardList")
 public class BoardList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,6 +58,7 @@ public class BoardList extends HttpServlet {
 		List<BoardVO> list = dao.boardListData(curPage);
 		// 총 페이지
 		int totalPage = dao.boardTotalPage();
+		// 루트 계정
 		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		out.println("<html>");
 		out.println("<head>");

@@ -8,26 +8,37 @@
 <body>
 	<center>
 		<h1>글쓰기</h1>
+			<form method="post" action="../BoardInsert">
 			<table class="table_content" width=500>
 				<tr>
 					<th width="20%">이름</th>
 					<td width="80%">
-						<input type=text size=20>
+						<input type=text size=20 required="required" name="name">
+						<!-- 
+							태그의 공통된 속성
+							id / class : 태그 구분자
+								 -----
+								 중복 있음
+							--
+							중복 없음
+							name : 자바로 데이터를 전송할 때 사용
+							style :
+						 -->
 				</tr>
 				<tr>
 					<th width="20%">제목</th>
 					<td width="80%">
-						<input type=text size=50>
+						<input type=text size=50 required="required" name="subject">
 				</tr>
 				<tr>
 					<th width="20%">내용</th>
 					<td width="80%">
-						<textarea rows=10 cols=52></textarea>
+						<textarea rows=10 cols=52 required="required" name="content"></textarea>
 				</tr>
 				<tr>
 					<th width="20%">비밀번호</th>
 					<td width="80%">
-						<input type=password size=15>
+						<input type=password size=15 required="required" name="pwd">
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -37,6 +48,7 @@
 					</td>
 				</tr>
 			</table>
+			</form>
 	</center>
 </body>
 </html>

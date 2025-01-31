@@ -155,4 +155,27 @@ public class BoardDAO {
 		}
 		return vo;
 	}
+	// 글쓰기
+	public void boardInsert(BoardVO vo) {
+		try {
+			getConnection();
+			String sql = "INSERT INTO htmlboard(no, name, subject, content, pwd) VALUES(hb_no_seq.nextval, ?, ?, ?, ?)";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getSubject());
+			ps.setString(3, vo.getContent());
+			ps.setString(4, vo.getPwd());
+			
+			// 실행
+			ps.executeUpdate(); // commit 포함
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+	}
+	// 수정
+	// 삭제
 }
