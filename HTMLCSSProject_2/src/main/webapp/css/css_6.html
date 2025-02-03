@@ -1,0 +1,122 @@
+<!-- 
+상태 선택자
+	:checked
+	:focus
+	:enabled
+	:disabled
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#a:active, #b:active, #c:active {
+	color: red;
+}
+#a:hover, #b:hover, #c:hover {
+	color: green;
+}
+input:enabled {
+	background:yellow;
+}
+input:disabled {
+	background: black;
+}
+input:focus {
+	background: white;
+}
+input[type="checkbox"]:checked{
+	box-shadow:0 0 0 3px hotpink;
+}
+ul li:nth-child(2n){
+	color: yellow;
+}
+
+ul li:nth-child(2n+1){
+	color: maroon;
+}
+ul li:first-child{
+	color: red;
+	font-weight: bold;
+}
+ul li:last-child{
+	color: blue;
+	font-weight: bold;
+}
+table thead:first-child{
+	background: orange;
+}
+table tbody:nth-child(2n) {
+	background: rgb(255,255,220);	
+}
+table td:nth-child(4n) {
+	background: green;
+}
+table td:nth-child(4n+3) {
+	background: cyan;
+}
+table td:nth-child(4n+1) {
+	background: purple;
+}
+
+</style>
+</head>
+<body>
+	<h1>:active, :hover</h1>
+	<h3 id="a">GGGG</h3>
+	<h3 id="b">HHHH</h3>
+	<h3 id="c">EEEE</h3>
+	<h1>:focus, :enabled, :disabled, :checked</h1>
+	<input type="text" size=30><br>
+	<input type="text" size=30 disabled="disabled"><br>
+	<input type="checkbox" value="취미" checked="checked">취미<br>
+	<h1>:first-child, :last-child, :nth-child(n)</h1>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+	</ul>
+	<h1>table 처리</h1>
+	<table width=500 border=1 bordercolor=black>
+		<thead>
+		<tr>
+			<th>name</th>
+			<th>lang</th>
+			<th>eng</th>
+			<th>math</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td align=center>ㄱㄱㄱ</td>
+			<td align=center>90</td>
+			<td align=center>80</td>
+			<td align=center>70</td>
+		</tr>
+		<tr>
+			<td align=center>ㅁㅁㅁ</td>
+			<td align=center>90</td>
+			<td align=center>80</td>
+			<td align=center>70</td>
+		</tr>
+		<tr>
+			<td align=center>ㅂㅂㅂ</td>
+			<td align=center>90</td>
+			<td align=center>80</td>
+			<td align=center>70</td>
+		</tr>
+		<tr>
+			<td align=center>ㄹㄹㄹ</td>
+			<td align=center>90</td>
+			<td align=center>80</td>
+			<td align=center>70</td>
+		</tr>
+		</tbody>
+	</table>
+</body>
+</html>

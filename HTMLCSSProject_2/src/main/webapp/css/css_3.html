@@ -1,0 +1,82 @@
+<!-- 
+	class 속성 여러 개 사용
+	
+	속성 선택자
+	태그명[속성=값] equals
+	태그명[속성^=값] startsWith
+	태그명[속성$=값] endsWith
+	태그명[속성*=값] contains (img[src*="/recipe/"]
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.poster {
+	width:120px;
+	height:180px;
+}
+.red {
+	border:2px solid red;
+}
+.blue {
+	border:2px solid blue;
+}
+.green {
+	border:2px solid green;
+}
+input[type="submit"] {
+	border-radius:5px;
+}
+input[type^="b"] { /* b 로 시작하는 것들 */
+	background:pink;
+}
+input[type$="t"] { /* t 로 끝난 것들*/
+	background:cyan;
+}
+input[type*="b"] {
+	background:blue;
+	color:white;
+}
+a[href^="https"] {
+	color:red;
+}
+img[src$="jpg"] {
+	width:120px;
+	height:180px;
+	border:2px soild green;
+}
+h2, h3, h4 {
+	color:green;
+}
+</style>
+</head>
+<body>
+	<h1>클래스명 여러 개 사용</h1>
+	<img src="image/m1.jpg" class="poster red">
+	<img src="image/m2.jpg" class="poster blue">
+	<img src="image/m3.jpg" class="poster green">
+	<img src="image/m4.jpg" class="poster">
+	<img src="image/m5.jpg" class="poster">
+	<img src="image/m6.jpg" class="poster">
+	<img src="image/m7.jpg" class="poster">
+	<h1>속성 선택자</h1>
+	<input type="text" size="20"><br>
+	<input type="button" value="Click"><br>
+	<input type="submit" value="전송"><br>
+	<input type="password" size="20"><br>
+	<h1>속성 선택자</h1>
+	<a href="http:">CSS1</a>
+	<a href="https:">CSS2</a>
+	<a href="http:">CSS3</a>
+	<h1>속성 선택자</h1>
+	<img src="image/new.gif">
+	<img src="image/m1.jpg">
+	<img src="image/m2.jpg">
+	<h1>멀티 선택자</h1>
+	<h3>CSS</h3>
+	<h2>CSS</h2>
+	<h4>CSS</h4>
+</body>
+</html>

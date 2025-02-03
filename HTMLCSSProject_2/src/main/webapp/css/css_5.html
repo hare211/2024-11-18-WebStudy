@@ -1,0 +1,64 @@
+<!-- 
+가상 선택자
+태그명:hover
+태그명:focus
+태그명:enabled
+
+구조 선택자
+	선택자:first-child
+	선택자:last-child
+	선택자:nth-child(수열)
+동위 선택자
+	형제 선택자:h1+h2
+	인접 형제:h1~h2
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+img {
+	width: 120px;
+	height: 180px;
+}
+img:first-child {
+	border: 3px solid green;
+}
+img:last-child {
+	border: 3px solid green;
+	border-radius: 60px;
+}
+
+img:nth-child(2n) {
+		border: 3px solid green;
+}
+div > p+h1{
+	background: rgb(0,255,255)
+}
+div > span > h1{
+	background: #8FA8CC;
+}
+div > p~h1{
+	color: magenta;
+}
+</style>
+</head>
+<body>
+	<img src="image/m1.jpg">
+	<img src="image/m2.jpg">
+	<img src="image/m3.jpg">
+	<img src="image/m4.jpg">
+	<img src="image/m5.jpg">
+	<img src="image/m6.jpg">
+	<img src="image/m7.jpg">
+	<div>
+		<p>CSS</p>
+		<h1>1</h1>
+		<h1>2</h1>
+		<span>
+			<h1>3</h1>
+		</span>
+	</div>
+</body>
+</html>

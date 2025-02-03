@@ -1,0 +1,62 @@
+<!-- 
+후손 선택자
+	형식) 태그명 태그명
+자손 선택자
+	형식) 태그명 > 태그명
+반응 선택자
+	형식) 태그명:hover
+상태 선택자
+구조 선택자
+동위 선택자
+문자 선택자
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div > span {
+	color:red;
+}
+div#p > span {
+	color:red;
+}
+img{
+	width:120px;
+	height:180px;
+}
+img:hover{
+	opacity: 0.3;
+	cursor: pointer;
+	width: 200px;
+	height: 230px;
+}
+a{
+	text-decoration: none; /* 밑줄 제거 */
+	color: black;
+	display: block;
+}
+a:hover {
+	color: green;
+}
+</style>
+</head>
+<body>
+<!-- 	<div id="p">
+	<h1>h1</h1>
+	<h2>h2</h2>
+	<span>span1</span>
+		<div>
+		<span>span2</span>
+		</div>
+	</div> -->
+	
+	<img src="image/m1.jpg">
+	<h1>a 태그에 hover 적용</h1>
+	<a href="#">1</a>
+	<a href="#">2</a>
+	<a href="#">3</a>
+	<a href="#">4</a>
+</body>
+</html>

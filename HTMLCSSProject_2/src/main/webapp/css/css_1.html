@@ -1,0 +1,58 @@
+<!-- 
+CSS : HTML 내용과 상관 없이 디자인을 변경할 수 있다
+종류)
+	외부 CSS : 모든 파일에 적용 가능
+			: 파일로 제작(.css)
+			<head>
+				<link rel="stylesheet" href="파일명 | URL">
+					URL => bootstrip
+			</head>
+	내부 CSS
+			<head>
+			  <style>
+				id, class, 태그{
+				
+				}
+			  </style>
+			</head>
+	인라인 CSS : 태그 한 개에 대한 처리
+	--------
+	모든 태그가 가지고 있는 속성 : id, class, name, style
+	<태그 style="">
+	
+	CSS 는 사용처가 많다(태그 제어 => 태그 찾기, 선택자)
+	1. 화면 UI
+	2. 자바스크립트
+	3. 크롤링(JSoup, 셀레니움)
+	
+	<h1 id="aaa"></h1>
+	#aaa{
+	}
+	<h1 class="aaa"></h1>
+	.aaa{
+	}
+	
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+h1 {
+	color:red;
+	background-color:yellow;
+}
+h2 {
+	text-align:center;
+	color:purple;
+	background-color:green;
+}
+
+</style>
+</head>
+<body>
+	<h1>h1</h1>
+	<h2>h2</h2>
+</body>
+</html>

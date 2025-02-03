@@ -1,0 +1,58 @@
+<!-- 
+선택자 기본
+1) 종류
+   ---
+   전체 선택자 : 모든 태그에 적용
+   	* {
+   	}
+   태그 선택자 : 선택된 태그에 적용
+   tagName {
+   }
+   	id 선택자 : 중복 없음
+   	class 선택자 : 중복 있음
+   	
+   *** name 속성 : 자바와 연결 => 데이터 전송
+   	   ---- <input>, <select>, <textarea>
+   	   ---- 중복이 있으면 안된다
+   속성 선택자
+   		<input type=text class ="">
+   		<input type=password class="">
+   		------------------------ width 200
+   		<input type=file class="">
+   		<input type=range class="">
+   		------------------------ width 300
+   		<input type=radio id="">
+   		------------------------ width 100
+   		
+   		*** 선택자 중 class 선택자는 여러 개 사용 가능
+   		<h1 class ="a b c"> => 3 개의 클래스 사용(a, b, c)
+	tagName[속성명=값]
+	예)
+		input[type="text"] {
+			width=200px;
+		}
+		input[type="password"] {
+			width=200px;
+		}
+		input[type="text"], [
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+h1 {
+	color:blue;
+}
+#a {
+	color:red;
+}
+</style>
+</head>
+<body>
+	<h1 id="a">h1.1</h1>
+	<h1 id="a">h1.2</h1>
+	<h1>h1.3</h1>
+</body>
+</html>
