@@ -88,6 +88,34 @@ public class FoodList extends HttpServlet {
 		
 		out.println("</ul>");
 		out.println("</div>");
+		
+		out.println("<div class=row>");
+		out.println("<h3>최근 방문 맛집</h3>");
+		out.println("<hr>");
+		List<FoodVO> cList = new ArrayList<FoodVO>();
+		Cookie[] cookies = request.getCookies();    
+		if (cookies != null) {
+			for (int i = cookies.length - 1; i >= 0; i--) { // 최신순으로
+				// 키 : getName, 값 : getValue
+				if (cookies[i].getName().startsWith("food_")) {
+					String fno = cookies[i].getValue();
+					FoodVO vo = dao.foodCookieData(Integer.parseInt(fno));
+					cList.add(vo);
+				}
+			}
+		}
+		for (int i = 0; i < cList.size(); i++) {
+			FoodVO cvo = cList.get(i);
+			if (i > 8) {
+				break;
+			}
+			out.println("<a href=FoodDetail?fno=" + cvo.getFno() + ">");
+			out.println("<img src=" + cvo.getPoster() + " style=\"width:100px; height:85\" class=img-rounded title=" + cvo.getName() + ">");
+			out.println("</a>");
+			
+		}
+		out.println("</div>");
+		
 		out.println("</div>");
 		out.println("</body>");
 		out.println("</html>");

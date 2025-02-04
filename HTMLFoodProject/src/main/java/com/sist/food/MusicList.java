@@ -2,11 +2,13 @@ package com.sist.food;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sist.dao.*;
@@ -56,12 +58,13 @@ public class MusicList extends HttpServlet {
 		out.println("<div class=container>");
 		out.println("<div class=row>");
 		for (MusicVO vo : list) {
-			out.println("<div class=\"col-md-12 mb-3\">");
-			out.println("<div class=\"thumbnail d-flex align-items-center\">");
+			out.println("<div class=\"col-md-3\">");
+			out.println("<div class=\"thumbnail\">");
 			out.println("<a href=\"MusicBeforeDetail?mno=" + vo.getMno() + "\">");
-			out.println("<img src=" + vo.getPoster() + " style=\"width:180px;height:80px; margin-left: 10px;\">"); 
+			out.println("<img src=" + vo.getPoster() + " style=\"width:230px;height:150px\">"); 
 			out.println("<div class=\"caption\">");
-			out.println("<p class=\"mb-0\">" + vo.getTitle() + "</p>");
+			out.println("<p>" + vo.getTitle() + "</p>");
+			out.println("<p>" + vo.getIdcrement() + "&nbsp;&nbsp;" + vo.getState() + "</p>");
 			out.println("</div>");
 			out.println("</a>");
 			out.println("</div>");
@@ -87,6 +90,38 @@ public class MusicList extends HttpServlet {
 		
 		out.println("</ul>");
 		out.println("</div>");
+		
+		
+		
+		
+		
+		out.println("<div class=row>");
+		out.println("<h3>최근 방문 곡</h3>");
+		out.println("<hr>");
+		List<MusicVO> cList = new ArrayList<MusicVO>();
+		Cookie[] cookies = request.getCookies();    
+		if (cookies != null) {
+			for (int i = cookies.length - 1; i >= 0; i--) { // 최신순으로
+				// 키 : getName, 값 : getValue
+				if (cookies[i].getName().startsWith("music_")) {
+					String mno = cookies[i].getValue();
+					MusicVO vo = dao.musicCookieData(Integer.parseInt(mno));
+					cList.add(vo);
+				}
+			}
+		}
+		for (int i = 0; i < cList.size(); i++) {
+			MusicVO cvo = cList.get(i);
+			if (i > 8) {
+				break;
+			}
+			out.println("<a href=MusicDetail?mno=" + cvo.getMno() + ">");
+			out.println("<img src=" + cvo.getPoster() + " style=\"width:100px; height:85\" class=img-rounded title=" + cvo.getTitle() + ">");
+			out.println("</a>");
+			
+		}
+		out.println("</div>");
+		
 		out.println("</div>");
 		out.println("</body>");
 		out.println("</html>");
@@ -100,6 +135,23 @@ public class MusicList extends HttpServlet {
 			out.println("<img src=" + vo.getPoster() + " style=\"width:230px;height:150px\">"); 
 			out.println("<div class=\"caption\">");
 			out.println("<p>" + vo.getTitle() + "</p>");
+			out.println("</div>");
+			out.println("</a>");
+			out.println("</div>");
+			out.println("</div>");
+			
+		}
+		강
+		 */
+		/*
+		 
+		 		for (MusicVO vo : list) {
+			out.println("<div class=\"col-md-12 mb-3\">");
+			out.println("<div class=\"thumbnail d-flex align-items-center\">");
+			out.println("<a href=\"MusicBeforeDetail?mno=" + vo.getMno() + "\">");
+			out.println("<img src=" + vo.getPoster() + " style=\"width:180px;height:80px; margin-left: 10px;\">"); 
+			out.println("<div class=\"caption\">");
+			out.println("<p class=\"mb-0\">" + vo.getTitle() + "</p>");
 			out.println("</div>");
 			out.println("</a>");
 			out.println("</div>");

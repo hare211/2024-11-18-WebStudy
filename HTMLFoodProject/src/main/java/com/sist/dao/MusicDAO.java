@@ -49,9 +49,9 @@ public class MusicDAO {
 		List<MusicVO> list = new ArrayList<MusicVO>();
 		try {
 			getConnection();
-			String sql = "SELECT mno, title, poster, num "
-					   + "FROM (SELECT mno, title, poster, rownum as num "
-					         + "FROM (SELECT /*+ INDEX_ASC(genie_music gm_mno_pk) */ mno, title, poster "
+			String sql = "SELECT mno, title, poster, idcrement, state, num "
+					   + "FROM (SELECT mno, title, poster, idcrement, state, rownum as num "
+					         + "FROM (SELECT /*+ INDEX_ASC(genie_music gm_mno_pk) */ mno, title, poster, idcrement, state "
 					               + "FROM genie_music)) "
 					   + "WHERE num BETWEEN ? AND ?";
 			
@@ -72,6 +72,8 @@ public class MusicDAO {
 				vo.setMno(rs.getInt(1));
 				vo.setTitle(rs.getString(2));
 				vo.setPoster(rs.getString(3));
+				vo.setIdcrement(rs.getInt(4));
+				vo.setState(rs.getString(5));
 				
 				list.add(vo);
 			}
@@ -108,5 +110,95 @@ public class MusicDAO {
 		}
 		
 		return totalPage;
+	}
+	
+	// 상세보기
+	public MusicVO getMusicDetail(int mno) {
+		MusicVO vo = new MusicVO();
+		try {
+			getConnection();
+			String sql = "SELECT mno, title, singer, album, poster, idcrement, state, cno "
+					   + "FROM genie_music "
+					   + "WHERE mno = ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, mno);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			vo.setMno(rs.getInt(1));
+			vo.setTitle(rs.getString(2));
+			vo.setSinger(rs.getString(3));
+			vo.setAlbum(rs.getString(4));
+			vo.setPoster(rs.getString(5));
+			vo.setIdcrement(rs.getInt(6));
+			vo.setState(rs.getString(7));
+			
+			int genre = rs.getInt(8);
+			
+			switch (genre) {
+			case 1, 2:
+				vo.setGenre("가요");
+				break;
+			case 3:
+				vo.setGenre("POP");
+				break;
+			case 4:
+				vo.setGenre("OST");
+				break;
+			case 5:
+				vo.setGenre("트롯");
+				break;
+			case 6:
+				vo.setGenre("JAZZ");
+				break;
+			case 7:
+				vo.setGenre("클래식");
+				break;
+			default:
+				vo.setGenre("VariousGenre");
+			}
+			
+			
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return vo;
+	}
+	
+	public MusicVO musicCookieData(int mno) {
+		MusicVO vo = new MusicVO();
+		try {
+			getConnection();
+			String sql = "SELECT mno, title, poster FROM genie_music WHERE mno = ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, mno);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			vo.setMno(rs.getInt("mno"));
+			vo.setTitle(rs.getString("title"));
+			vo.setPoster(rs.getString("poster"));
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return vo;
 	}
 }
