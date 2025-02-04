@@ -162,8 +162,6 @@ public class MusicDAO {
 				vo.setGenre("VariousGenre");
 			}
 			
-			
-			
 			rs.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();

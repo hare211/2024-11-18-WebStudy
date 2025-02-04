@@ -53,6 +53,10 @@ public class MusicList extends HttpServlet {
 		out.println("<head>");
 		out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
 		out.println("<link rel=stylesheet href=css/food.css>");
+		out.println("<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">");
+		out.println("<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>");
+		out.println("<link href=\"https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap\" rel=\"stylesheet\">");
+		out.println("<link rel=\"stylesheet\" href=\"table.css\">");
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<div class=container>");

@@ -66,32 +66,33 @@ public class MusicDetail extends HttpServlet {
 		
 		out.println("<table class=table>");
 		out.println("<tr>");
-		out.println("<td width=30% class=text-center rowspan=9>");
-		out.println("<img src=" + vo.getPoster() + " style=\"width:270px; height:300px\">");
+		out.println("<td width=30% class=text-center rowspan=8>");
+		out.println("<img src=" + vo.getPoster() + " style=\"width:200px; height:200px\">");
+		out.println("<p>" + vo.getIdcrement() + "&nbsp;&nbsp;" + vo.getState() + "</p>");
 		out.println("</td>");
 		out.println("<td colspan=2>");
-		out.println("<h3>" + vo.getTitle() + "&nbsp;<span style=\"color=orange\">" + "</span></h3>");
+		out.println("<h3>" + vo.getTitle() + "&nbsp;<span style=\"color:orange\">" + "</span></h3>");
 		out.println("</td>");
 		out.println("</tr>");
 		
 		out.println("<tr>");
-		out.println("<td width=10% style=\"color=gray\">가수</td>");
+		out.println("<td width=10% style=\"color:gray\">가수</td>");
 		out.println("<td width=60%>" + vo.getSinger() + "</td>");
 		out.println("</tr>");
 		
 		out.println("<tr>");
-		out.println("<td width=10% style=\"color=gray\">앨범</td>");
+		out.println("<td width=10% style=\"color:gray\">앨범</td>");
 		out.println("<td width=60%>" + vo.getAlbum() + "</td>");
 		out.println("</tr>");
-		
+		/*
 		out.println("<tr>");
-		out.println("<td width=10% style=\"color=gray\">등락</td>");
+		out.println("<td width=10% style=\"color:gray\">등락</td>");
 		out.println("<span><td width=60%>" + vo.getIdcrement() + "&nbsp;&nbsp;" + vo.getState() + "</td></sapn>");
 		out.println("</tr>");
-		
+		*/
 		
 		out.println("<tr>");
-		out.println("<td width=10% style=\"color=gray\">장르</td>");
+		out.println("<td width=10% style=\"color:gray\">장르</td>");
 		out.println("<td width=60%>" + vo.getGenre() + "</td>");
 		out.println("</tr>");
 		/*
