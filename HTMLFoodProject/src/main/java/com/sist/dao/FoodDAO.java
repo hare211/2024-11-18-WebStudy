@@ -278,4 +278,74 @@ public class FoodDAO {
 		
 		return total;
 	}
+	public List<FoodVO> foodFind(int page, String col, String fd){
+		List<FoodVO> list = new ArrayList<FoodVO>();
+		
+		try {
+			getConnection();
+			String sql = "SELECT fno, name, poster, address, type, num "
+					   + "FROM (SELECT fno, name, poster, address, rownum as num "
+					         + "FROM (SELECT fno, name poster, address "
+					               + "FROM food_menupan "
+					               + "WHERE " + col + " LIKE '%'||?||'%')) " // col '' 일지 아닐지 모름 << 이거 다시 봐야함
+					   + "WHERE num BETWEEN ? AND ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			int rowSize = 20;
+			
+			int start = (rowSize * page) - (rowSize -1);
+			int end = (rowSize * page);
+			
+			ps.setString(1, fd);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				FoodVO vo = new FoodVO();
+				
+				vo.setFno(rs.getInt(1));
+				vo.setName(rs.getString(2));
+				vo.setPoster("https://www.menupan.com" + rs.getString(3));
+				vo.setAddress(rs.getString(4));
+				vo.setType(rs.getString(5));
+				
+				list.add(vo);
+			}
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return list;
+	}
+	public int foodFindTotalPage(String col, String fd) {
+		int total = 0;
+		try {
+			getConnection();
+			String sql = "SELECT CEIL(COUNT(*) / 20.0) "
+					   + "FROM food_menupan FROM food_menupan "
+					   + "WHERE " + col + " LIKE '%'||?||'%'";
+
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, fd);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			total = rs.getInt(1);
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return total;
+	}
 }
