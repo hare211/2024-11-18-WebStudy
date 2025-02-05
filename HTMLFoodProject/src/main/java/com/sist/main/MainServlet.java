@@ -30,6 +30,7 @@ public class MainServlet extends HttpServlet {
 		out.println("<a href=FoodList class=\"btn btn-lg btn-success\">식당</a>");
 		out.println("<a href=MusicList class=\"btn btn-lg btn-warning\">음악</a>");
 		out.println("<a href=FoodFind class=\"btn btn-lg btn-info\">식당검색</a>");
+		out.println("<a href=MusicGenreFind class=\"btn btn-lg btn-info\">음악검색</a>");
 		
 		
 		out.println("</div>");

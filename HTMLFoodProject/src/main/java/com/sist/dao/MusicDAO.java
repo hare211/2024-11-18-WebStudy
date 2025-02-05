@@ -200,7 +200,7 @@ public class MusicDAO {
 		return vo;
 	}
 	
-	public List<MusicVO> getMusicTypeList(int cno, int page){
+	public List<MusicVO> getMusicGenreList(int cno, int page){
 		List<MusicVO> list = new ArrayList<MusicVO>();
 		
 		try {
@@ -241,7 +241,7 @@ public class MusicDAO {
 		return list;
 	}
 	
-	public int musicGenreTotalPage(int cno) {
+	public int getMusicGenreTotalPage(int cno) {
 		int total = 0;
 		try {
 			getConnection();

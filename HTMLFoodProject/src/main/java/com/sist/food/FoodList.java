@@ -110,7 +110,7 @@ public class FoodList extends HttpServlet {
 				break;
 			}
 			out.println("<a href=FoodDetail?fno=" + cvo.getFno() + ">");
-			out.println("<img src=" + cvo.getPoster() + " style=\"width:100px; height:85\" class=img-rounded title=" + cvo.getName() + ">");
+			out.println("<img src=" + cvo.getPoster() + " style=\"width:100px; height:85px; margin-bottom:25px;\" class=img-rounded title=" + cvo.getName() + ">");
 			out.println("</a>");
 			
 		}

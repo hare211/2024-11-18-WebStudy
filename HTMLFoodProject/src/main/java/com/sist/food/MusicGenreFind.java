@@ -35,8 +35,8 @@ public class MusicGenreFind extends HttpServlet {
 		}
 		
 		MusicDAO dao = MusicDAO.newInstance();
-		List<MusicVO> list = dao.getMusicTypeList(Integer.parseInt(cno), curPage);
-		int totalPage = dao.musicGenreTotalPage(Integer.parseInt(cno));
+		List<MusicVO> list = dao.getMusicGenreList(Integer.parseInt(cno), curPage);
+		int totalPage = dao.getMusicGenreTotalPage(Integer.parseInt(cno));
 		
 		final int BLOCK = 10;
 		int startPage = ((curPage - 1) / BLOCK * BLOCK) + 1;
@@ -58,8 +58,8 @@ public class MusicGenreFind extends HttpServlet {
 		out.println("<a href=MusicGenreFind?cno=2 class=\"btn btn-sm btn-success\">가요</a>");
 		out.println("<a href=MusicGenreFind?cno=3 class=\"btn btn-sm btn-info\">POP</a>");
 		out.println("<a href=MusicGenreFind?cno=4 class=\"btn btn-sm btn-primary\">OST</a>");
-		out.println("<a href=MusicGenreFind?cno=5 class=\"btn btn-sm btn-warning\">트롯</a>");
-		out.println("<a href=MusicGenreFind?cno=6 class=\"btn btn-sm btn-default\">JAZZ</a>");
+		out.println("<a href=MusicGenreFind?cno=5 class=\"btn btn-sm btn-info\">트롯</a>");
+		out.println("<a href=MusicGenreFind?cno=6 class=\"btn btn-sm btn-success\">JAZZ</a>");
 		out.println("<a href=MusicGenreFind?cno=7 class=\"btn btn-sm btn-danger\">클래식</a>");
 		
 		
