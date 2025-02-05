@@ -71,7 +71,7 @@ public class FoodDAO {
 				
 				vo.setFno(rs.getInt(1));
 				vo.setName(rs.getString(2));
-				vo.setPoster("https://www.menupan.com" +     rs.getString(3));
+				vo.setPoster("https://www.menupan.com" + rs.getString(3));
 				
 				list.add(vo);
 			}
@@ -182,4 +182,100 @@ public class FoodDAO {
 		return vo;
 	}
 	
+	// 음식 종류별 검색
+	public List<FoodVO> foodTypeFind(String type, int page) {
+		List<FoodVO> list = new ArrayList<FoodVO>();
+		
+		try {
+			getConnection();
+			String sql = "";
+			
+			int rowSize = 12;
+			int start = (rowSize * page) - (rowSize - 1);
+			int end = rowSize * page;
+			
+			if (!type.equals("기타")) {
+				sql = "SELECT fno, name, poster, num "
+					+ "FROM (SELECT fno, name, poster, rownum as num "
+					      + "FROM (SELECT fno, name, poster "
+					            + "FROM food_menupan "
+					            + "WHERE type LIKE '%'||?||'%')) "
+					+ "WHERE num BETWEEN ? AND ?";
+				ps = conn.prepareStatement(sql);
+				
+				ps.setString(1, type);
+				ps.setInt(2, start);
+				ps.setInt(3, end);
+			} else {
+				sql = "SELECT fno, name, poster, num "
+						+ "FROM (SELECT fno, name, poster, rownum as num "
+						      + "FROM (SELECT fno, name, poster "
+						            + "FROM food_menupan "
+						            + "WHERE NOT REGEXP_LIKE(type, '한식|양식|중식|일식|카페'))) "
+						+ "WHERE num BETWEEN ? AND ?";
+				ps = conn.prepareStatement(sql);
+				
+				ps.setInt(1, start);
+				ps.setInt(2, end);
+			}
+			
+			
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				FoodVO vo = new FoodVO();
+				
+				vo.setFno(rs.getInt(1));
+				vo.setName(rs.getString(2));
+				vo.setPoster("https://www.menupan.com" + rs.getString(3));
+				
+				list.add(vo);
+			}
+			
+			rs.close();
+		} catch (Exception ex) {	
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		return list;
+	}
+	public int foodTypeTotalPage(String type) {
+		int total = 0;
+		
+		try {
+			getConnection();
+			String sql = "";
+			if (!type.equals("기타")) {
+				sql = "SELECT CEIL(COUNT(*) / 12.0) "
+				    + "FROM food_menupan "
+				    + "WHERE type LIKE '%'||?||'%'";
+				
+				ps = conn.prepareStatement(sql);
+				
+				ps.setString(1, type);
+			} else {
+				sql = "SELECT CEIL(COUNT(*) / 12.0) "
+					+ "FROM food_menupan "
+					+ "WHERE NOT REGEXP_LIKE(type, '한식|양식|중식|일식|카페')";
+				
+				ps = conn.prepareStatement(sql);
+			}
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			total = rs.getInt(1);
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return total;
+	}
 }

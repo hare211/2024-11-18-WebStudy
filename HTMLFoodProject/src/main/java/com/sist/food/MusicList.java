@@ -61,19 +61,22 @@ public class MusicList extends HttpServlet {
 		out.println("<body>");
 		out.println("<div class=container>");
 		out.println("<div class=row>");
-		for (MusicVO vo : list) {
-			out.println("<div class=\"col-md-3\">");
-			out.println("<div class=\"thumbnail\">");
-			out.println("<a href=\"MusicBeforeDetail?mno=" + vo.getMno() + "\">");
-			out.println("<img src=" + vo.getPoster() + " style=\"width:230px;height:150px\">"); 
-			out.println("<div class=\"caption\">");
-			out.println("<p>" + vo.getTitle() + "</p>");
-			out.println("<p>" + vo.getIdcrement() + "&nbsp;&nbsp;" + vo.getState() + "</p>");
-			out.println("</div>");
-			out.println("</a>");
-			out.println("</div>");
-			out.println("</div>");
-		}
+		out.println("<header>");
+		out.println("<h1>장르별 차트</h1>");
+		out.println("</header>");
+ 		for (MusicVO vo : list) {
+ 			out.println("<div class=\"col-md-12 mb-3\">");
+ 			out.println("<div class=\"thumbnail d-flex align-items-center\">");
+ 			out.println("<a href=\"MusicBeforeDetail?mno=" + vo.getMno() + "\">");
+ 			out.println("<img src=" + vo.getPoster() + " style=\"width:165px;height:110px; margin-left: 10px;\">");
+ 			out.println("&nbsp;&nbsp;" + vo.getTitle());
+ 			out.println("</a>");
+ 			out.println("<div class=\"caption\">");
+ 			out.println("<p class=\"mb-0\">" + vo.getIdcrement() + "&nbsp;&nbsp;" + vo.getState() + "</p>");
+ 			out.println("</div>");
+ 			out.println("</div>");
+ 			out.println("</div>");
+ 		}
 		out.println("</div>");
 		out.println("<div class=\"row text-center\">");
 		out.println("<ul class=\"pagination\">");
