@@ -49,9 +49,9 @@ public class MusicDAO {
 		List<MusicVO> list = new ArrayList<MusicVO>();
 		try {
 			getConnection();
-			String sql = "SELECT mno, title, poster, idcrement, state, num "
-					   + "FROM (SELECT mno, title, poster, idcrement, state, rownum as num "
-					         + "FROM (SELECT /*+ INDEX_ASC(genie_music gm_mno_pk) */ mno, title, poster, idcrement, state "
+			String sql = "SELECT mno, title, poster, idcrement, state, singer, num "
+					   + "FROM (SELECT mno, title, poster, idcrement, state, singer, rownum as num "
+					         + "FROM (SELECT /*+ INDEX_ASC(genie_music gm_mno_pk) */ mno, title, poster, idcrement, state, singer "
 					               + "FROM genie_music)) "
 					   + "WHERE num BETWEEN ? AND ?";
 			
@@ -74,6 +74,7 @@ public class MusicDAO {
 				vo.setPoster(rs.getString(3));
 				vo.setIdcrement(rs.getInt(4));
 				vo.setState(rs.getString(5));
+				vo.setSinger(rs.getString(6));
 				
 				list.add(vo);
 			}

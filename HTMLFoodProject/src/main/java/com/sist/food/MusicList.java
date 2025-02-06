@@ -44,7 +44,7 @@ public class MusicList extends HttpServlet {
 		 * 페이지수가 변경될 때 마다 페이지를 유지 또는 변경해야 함
 		 */
 		int startPage = ((curPage - 1) / BLOCK * BLOCK) + 1;
-		int endPage = ((curPage - 1) / BLOCK * BLOCK) + BLOCK;
+		int endPage = startPage + BLOCK - 1;
 		
 		if (endPage > totalPage) {
 			endPage = totalPage;
@@ -57,31 +57,45 @@ public class MusicList extends HttpServlet {
 		out.println("<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>");
 		out.println("<link href=\"https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap\" rel=\"stylesheet\">");
 		out.println("<link rel=\"stylesheet\" href=\"table.css\">");
+		out.println("<link rel=stylesheet href=css/musictable.css>");
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<div class=container>");
 		out.println("<div class=row>");
-		out.println("<header>");
-		out.println("<h1>장르별 차트</h1>");
-		out.println("</header>");
- 		for (MusicVO vo : list) {
- 			out.println("<div class=\"col-md-12 mb-3\">");
- 			out.println("<div class=\"thumbnail d-flex align-items-center\">");
- 			out.println("<a href=\"MusicBeforeDetail?mno=" + vo.getMno() + "\">");
- 			out.println("<img src=" + vo.getPoster() + " style=\"width:165px;height:110px; margin-left: 10px;\">");
- 			out.println("&nbsp;&nbsp;" + vo.getTitle());
- 			out.println("</a>");
- 			out.println("<div class=\"caption\">");
- 			out.println("<p class=\"mb-0\">" + vo.getIdcrement() + "&nbsp;&nbsp;" + vo.getState() + "</p>");
- 			out.println("</div>");
- 			out.println("</div>");
- 			out.println("</div>");
- 		}
+		out.println("<table>");
+		out.println("<thead>");
+		out.println("<tr>");
+		out.println("<th></th>");
+		out.println("<th>곡명</th>");
+		out.println("<th>가수</th>");
+		out.println("<th>등락</th>");
+		out.println("<tbody>");
+		
+		for (MusicVO vo : list) {
+			//out.println("<div class=\"col-md-3\">");
+			//out.println("<div class=\"thumbnail\">");
+			out.println("<tr class=\"list\">");
+			//out.println("<a href=\"MusicBeforeDetail?mno=" + vo.getMno() + "\">");
+			out.println("<td><img src=" + vo.getPoster() + " style=\"width:48px;height:48px\"></td>");
+			out.println("<td><a href=\"MusicBeforeDetail?mno=" + vo.getMno() + "\">" + vo.getTitle() + "</a></td>");
+			out.println("<td>" + vo.getSinger() + "</td>");
+			out.println("<td>" + vo.getIdcrement() + "&nbsp;&nbsp;" + vo.getState() + "</td>");
+			out.println("</a>");
+			out.println("</tr>");
+			//out.println("</a>");
+			//out.println("</div>");
+			//out.println("</div>");
+			
+		}
+		out.println("</tbody>");
+		out.println("</table>");
 		out.println("</div>");
+		
+		
 		out.println("<div class=\"row text-center\">");
 		out.println("<ul class=\"pagination\">");
 		if (startPage > 1) {
-			out.println("<li><a href=\"MusicList?page=" + (startPage - 1) + "\">&lt;</a></li>");
+			out.println("<li><a href=\"MusicList?page=" + (curPage - 1) + "\">&lt;</a></li>");
 		}
 		
 		for (int i = startPage; i <= endPage; i++) {
@@ -91,8 +105,8 @@ public class MusicList extends HttpServlet {
 				out.println("<li><a href=\"MusicList?page=" + i + "\">" + i + "</a></li>");
 			}
 		}
-		if (endPage < totalPage) {
-			out.println("<li><a href=\"MusicList?page=" + (endPage + 1) + "\">&gt;</a></li>");
+		if (curPage < totalPage) {
+			out.println("<li><a href=\"MusicList?page=" + (curPage + 1) + "\">&gt;</a></li>");
 		}
 		
 		out.println("</ul>");

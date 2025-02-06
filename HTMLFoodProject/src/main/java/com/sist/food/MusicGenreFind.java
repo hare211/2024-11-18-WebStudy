@@ -65,7 +65,7 @@ public class MusicGenreFind extends HttpServlet {
 		
 		out.println("</div>");
 		out.println("<div class=row style=\"margin-top: 20px\">");
-		
+
 		for (MusicVO vo : list) {
 			out.println("<div class=\"col-md-3\">");
 			out.println("<div class=\"thumbnail\">");
