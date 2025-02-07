@@ -60,7 +60,7 @@ public class MusicList extends HttpServlet {
 		out.println("<link rel=stylesheet href=css/musictable.css>");
 		out.println("</head>");
 		out.println("<body>");
-		out.println("<div class=container>");
+		out.println("<div class=container-fluid>");
 		out.println("<div class=row>");
 		out.println("<table>");
 		out.println("<thead>");

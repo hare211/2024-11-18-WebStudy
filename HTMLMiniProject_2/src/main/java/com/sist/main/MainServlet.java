@@ -17,7 +17,7 @@ public class MainServlet extends HttpServlet {
     
 	
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
@@ -48,6 +48,7 @@ public class MainServlet extends HttpServlet {
 				+ "        <span class=\"caret\"></span></a>"
 				+ "        <ul class=\"dropdown-menu\">"
 				+ "          <li><a href=\"MainServlet?mode=3\">장르별 음악</a></li>"
+				+ "          <li><a href=\"MainServlet?mode=4\">음악 검색</a></li>"
 				+ "        </ul>"
 				+ "      </li>"
 //				+ "      <li class=\"dropdown\">"

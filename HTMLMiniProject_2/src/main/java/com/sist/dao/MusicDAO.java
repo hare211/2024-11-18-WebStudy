@@ -1,5 +1,6 @@
 package com.sist.dao;
 import java.util.*;
+import java.nio.file.FileVisitOption;
 import java.sql.*;
 import com.sist.vo.*;
 
@@ -118,7 +119,16 @@ public class MusicDAO {
 		MusicVO vo = new MusicVO();
 		try {
 			getConnection();
-			String sql = "SELECT mno, title, singer, album, poster, idcrement, state, cno "
+			
+			String sql = "UPDATE genie_music SET hit = hit + 1 WHERE mno = ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, mno);
+			
+			ps.executeUpdate();
+			
+			sql = "SELECT mno, title, singer, album, poster, idcrement, state, hit, cno "
 					   + "FROM genie_music "
 					   + "WHERE mno = ?";
 			
@@ -137,8 +147,9 @@ public class MusicDAO {
 			vo.setPoster(rs.getString(5));
 			vo.setIdcrement(rs.getInt(6));
 			vo.setState(rs.getString(7));
+			vo.setHit(rs.getInt(8));
 			
-			int genre = rs.getInt(8);
+			int genre = rs.getInt(9);
 			
 			switch (genre) {
 			case 1, 2:
@@ -320,5 +331,112 @@ public class MusicDAO {
 			disconnection();
 		}
 		return vo;
+	}
+	public List<MusicVO> musicHitTop10() {
+		List<MusicVO> list = new ArrayList<MusicVO>();
+		
+		try {
+			getConnection();
+			String sql = "SELECT mno, title, poster, hit, rownum "
+					   + "FROM (SELECT mno, title, poster, hit "
+					         + "FROM genie_music "
+					         + "ORDER BY hit DESC) "
+					   + "WHERE rownum <= 10";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				MusicVO vo = new MusicVO();
+				
+				vo.setMno(rs.getInt(1));
+				vo.setTitle(rs.getString(2));
+				vo.setPoster(rs.getString(3));
+				vo.setHit(rs.getInt(4));
+				
+				list.add(vo);
+			}
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return list;
+	}
+	public List<MusicVO> musicFind(int page, String col, String fd) {
+		List<MusicVO> list = new ArrayList<MusicVO>();
+		
+		try {
+			getConnection();
+			String sql = "SELECT mno, title, poster, singer, cno, num "
+					   + "FROM (SELECT mno, title, poster, singer, cno, rownum as num "
+					         + "FROM (SELECT mno, title, poster, singer, cno "
+					               + "FROM genie_music "
+					               + "WHERE " + col + " LIKE '%'||?||'%')) "
+					   + "WHERE num BETWEEN ? AND ?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			int rowSize = 20;
+			int start = (rowSize * page) - (rowSize -1);
+			int end = (rowSize * page);
+			
+			ps.setString(1, fd);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				MusicVO vo = new MusicVO();
+				
+				vo.setMno(rs.getInt(1));
+				vo.setTitle(rs.getString(2));
+				vo.setPoster(rs.getString(3));
+				vo.setSinger(rs.getString(4));
+				vo.setCno(rs.getInt(5));
+				
+				list.add(vo);
+			}
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return list;
+	}
+	
+	public int musicFindTotalPage(String col, String fd) {
+		int total = 0;
+		
+		try {
+			getConnection();
+			String sql = "SELECT CEIL(COUNT(*) / 20.0) "
+					   + "FROM genie_music "
+					   + "WHERE " + col + " LIKE '%'||?||'%'";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, fd);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			
+			total = rs.getInt(1);
+			
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			disconnection();
+		}
+		
+		return total;
 	}
 }

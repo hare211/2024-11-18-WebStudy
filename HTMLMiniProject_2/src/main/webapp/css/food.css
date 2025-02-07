@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .container{
-	margin-top: 50px; /* 시작점 */
+	margin-top: 0px; /* 시작점 */
 }
 .row {
 	margin: 0px auto; /* 가운데 정렬 */
