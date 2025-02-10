@@ -371,9 +371,9 @@ public class MusicDAO {
 		
 		try {
 			getConnection();
-			String sql = "SELECT mno, title, poster, singer, cno, num "
-					   + "FROM (SELECT mno, title, poster, singer, cno, rownum as num "
-					         + "FROM (SELECT mno, title, poster, singer, cno "
+			String sql = "SELECT mno, title, poster, singer, cno, idcrement, state, num "
+					   + "FROM (SELECT mno, title, poster, singer, cno, idcrement, state, rownum as num "
+					         + "FROM (SELECT mno, title, poster, singer, cno, idcrement, state "
 					               + "FROM genie_music "
 					               + "WHERE " + col + " LIKE '%'||?||'%')) "
 					   + "WHERE num BETWEEN ? AND ?";
@@ -398,6 +398,8 @@ public class MusicDAO {
 				vo.setPoster(rs.getString(3));
 				vo.setSinger(rs.getString(4));
 				vo.setCno(rs.getInt(5));
+				vo.setIdcrement(rs.getInt(6));
+				vo.setState(rs.getString(7));
 				
 				list.add(vo);
 			}

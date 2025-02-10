@@ -66,9 +66,9 @@ public class MusicList extends HttpServlet {
 		out.println("<thead>");
 		out.println("<tr>");
 		out.println("<th></th>");
-		out.println("<th></th>");
-		out.println("<th></th>");
-		out.println("<th></th>");
+		out.println("<th>곡명</th>");
+		out.println("<th>가수</th>");
+		out.println("<th>등락</th>");
 		out.println("<tbody>");
 		
 		for (MusicVO vo : list) {

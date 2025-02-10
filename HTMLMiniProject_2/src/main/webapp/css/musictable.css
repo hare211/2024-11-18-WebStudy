@@ -80,7 +80,12 @@ a {
   }
   
   .list:hover{
-  	background: silver;
+  	cursor: pointer;
+	color: gray
   }
   
+  .list:hover td {
+  	cursor: pointer;
+	color: gray
+  }
  }
