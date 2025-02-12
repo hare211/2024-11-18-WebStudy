@@ -30,6 +30,18 @@
 </head>
 <body>
 MajorVersion: <%= application.getMajorVersion() %><br>
-MinorVersion: <%= application.getMinorVersion() %>
+MinorVersion: <%= application.getMinorVersion() %><br>
+서버명: <%= application.getServerInfo() %>
+<%
+	String driver = application.getInitParameter("drvier");
+	String url = application.getInitParameter("url");
+	String username = application.getInitParameter("username");
+	String password = application.getInitParameter("password");
+			
+	application.log("Driver: " + driver);
+	application.log("URL: " + url);
+	application.log("Username: " + username);
+	application.log("Password: " + password);
+%>
 </body>
 </html>
