@@ -24,7 +24,7 @@
           <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
           <footer><a href="#">Read More &raquo;</a></footer>
         </article>
-      </li>
+      </li> 
       <li class="one_third">
         <article class="service"><i class="icon fa fa-hospital-o"></i>
           <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
