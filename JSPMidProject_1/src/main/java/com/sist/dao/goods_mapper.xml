@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PreparedStatement / ResultSet -->
+ <!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sist.dao.goods_mapper">
+ 	<!-- 
+ 		(cache-ref | cache | resultMap* | parameterMap* | sql* | insert* | update* | delete* | select*)+
+ 	 -->
+ 	 <!-- 
+ 	 	id : 구분자
+ 	 	key : id, value : SQL 문장
+ 	 	resultType : 결과값
+ 	 	parameterType : 매개변수
+ 	 	
+ 	 	1. VO 에 존재X -> Map
+ 	 	2. VO 에 존재O -> VO
+ 	 	
+ 	 	public List<GoodsVO> goodsListData(Map map)
+ 	 		   -> resultType			   -> parameterType
+ 	 		   |
+ 	 		   selectList => 목록
+ 	 		   selectOne -> row(상세보기)
+ 	 		   
+ 	  -->
+ 	 <!-- 									GoodsVO 에 결과 쓰기		hashmap 타입으로 매개변수 받기 -->
+ 	 <select id="goodsListData" resultType="GoodsVO" parameterType="hashmap">
+ 	 	SELECT no, goods_name, goods_poster, num 
+ 	 	FROM (SELECT no, goods_name, goods_poster, rownum as num 
+ 	 	      FROM (SELECT no, goods_name, goods_poster 
+ 	 	            FROM goods_all ORDER BY no ASC)) 
+ 	 	WHERE num BETWEEN #{start} AND #{end}
+ 	 	<!-- 
+ 	 		map.put("start", 1);
+ 	 		map.put("end", 10);
+ 	 		#{end} => map.get("end")
+ 	 	 -->
+ 	 </select>
+ 	 <select id="goodsTotalPage" resultType="int">
+ 	 	SELECT CEIL(COUNT(*) / 12.0) FROM goods_all
+ 	 </select>
+ </mapper>

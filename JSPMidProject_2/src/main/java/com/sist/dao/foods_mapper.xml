@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PreparedStatement / ResultSet 담당
+	 SQL 문장 저장 장소
+	 
+ -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- SQL 문장 -->
+ <mapper namespace="com.sist.dao.food_mapper"> <!-- 패키지 지정 -->
+ 	<!-- HashMap 에 첨부
+ 		 map.put("id", "SELECT ~")
+ 		 
+ 		 selectList(id), insert(id), update(id)...
+ 		 유의점 : 한 개의 sql 문장만 실행 가능
+ 		 		여러 개 실행할 수 있는 방법은 존재
+ 		 			=> 회원 탈퇴
+ 		 			<delete id="">
+ 		 			begin
+ 		 				delete from A
+ 		 				delete from B
+ 		 				delete from C
+	 				end 
+ 		 			</delete>
+ 		 			=> 프로시저 사용
+ 	 -->
+ 	 <!-- 
+ 	 	1) Map : VO 에 없는 변수 여러 개인 경우
+ 	 	2) VO : VO 에 있는 변수가 여러 개인 경우
+ 	 	하나만 있을 때 : 데이터 타입만 작성해도 됨
+ 	 	여러 개 있을 때 : Map 을 사용해야 함
+ 	  -->
+ 	  <sql id="where-fno">
+ 	  	WHERE fno = #{fno}
+ 	  </sql>
+ 	  <!-- 목록 출력 -->
+ 	<select id="foodListData" resultType="FoodVO"><!-- HashMap 생략 가능(3.5 버전 이상) -->
+ 		SELECT fno, name, poster, num 
+ 		FROM (SELECT fno, name, poster, rownum as num 
+ 		      FROM (SELECT fno, name, poster 
+ 		            FROM food_menupan ORDER BY fno ASC)) 
+ 		WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<!-- 총 페이지 -->
+ 	<select id="foodTotalPage" resultType="int">
+ 		SELECT CEIL(COUNT(*) / 12.0) FROM food_menupan
+ 	</select>
+ 	<!-- 상세보기 시 조회수 증가 -->
+ 	<update id="hitIncrement" parameterType="int"><!-- parameterType 에는 데이터 타입을 기입 -->
+ 		UPDATE food_menupan 
+ 		SET hit = hit + 1 
+ 		<include refid="where-fno"/>
+ 	</update>
+ 	<!-- 상세보기 출력 -->
+ 	<select id="foodDetailData" resultType="FoodVO" parameterType="int"><!-- parameterType 생략 가능 -->
+ 		SELECT name, type, phone, address, theme, poster, images, time, parking, content, price, score, hit 
+ 		FROM food_menupan 
+ 		<include refid="where-fno"/> 
+ 	</select>
+ </mapper>
