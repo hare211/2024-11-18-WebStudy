@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sist.dao.board-mapper">
+ 	<!-- MyBatis 는 한 개의 태그에 한 개의 SQL 문만 지정 -->
+ 	<!-- 반복되는 SQL 문장 -->
+ 	<sql id="where-no">
+ 		WHERE no = #{no}
+ 	</sql>
+ 	<!-- 목록 -->
+ 	<select id="boardListData" resultType="BoardVO" parameterType="hashmap">
+ 		SELECT no, subject, name, regdate, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit, num 
+ 		FROM (SELECT no, subject, name, regdate, hit, rownum as num 
+ 		      FROM (SELECT no, subject, name, regdate, hit 
+ 		            FROM board ORDER BY no DESC)) 
+ 		WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<!-- 총페이지 -->
+ 	<select id="boardTotalPage" resultType="int">
+ 		SELECT CEIL(COUNT(*) / 10.0) FROM board
+ 	</select>
+ 	<!-- 글작성 -->
+ 	<insert id="boardInsert" parameterType="BoardVO">
+ 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+ 			SELECT NVL(MAX(no) + 1, 1) as no FROM board
+ 		</selectKey>
+ 		INSERT INTO board VALUES(#{no}, #{name}, #{subject}, #{content}, #{pwd}, SYSDATE, 0)
+ 	</insert>
+ 	<!-- 조회수 증가 -->
+ 	<update id="hitIncrement" parameterType="int">
+ 		UPDATE board 
+ 		SET hit = hit + 1 
+ 		<include refid="where-no"/>
+ 	</update>
+ 	<!-- 상세보기 -->
+ 	<select id="boardDetailData" resultType="BoardVO" parameterType="int">
+ 		SELECT * 
+ 		FROM board 
+ 		<include refid="where-no"/>
+ 	</select>
+ 	<!-- 비밀번호 읽기 -->
+ 	<select id="boardGetPassword" resultType="String" parameterType="int">
+ 		SELECT pwd 
+ 		FROM board 
+ 		<include refid="where-no"/>
+ 	</select>
+ 	<!-- 수정하기 -->
+ 	<update id="boardUpdate" parameterType="BoardVO">
+ 		UPDATE board 
+ 		SET name = #{name}, subject = #{subject}, content = #{content}
+ 		<include refid="where-no"/>
+ 	</update>
+ 	<!-- 삭제하기 -->
+ 	<delete id="boardDelete" parameterType="int">
+ 		DELETE FROM board
+ 		<include refid="where-no"/>
+ 	</delete>
+ 	<!-- 
+ 		${} #{}
+ 		
+ 		#{} => setString(getName())
+ 		${} => 오라클 상에서 '' 으로 취급하지 않음, 주로 컬럼명, 테이블명을 제시할 때 사용함
+ 		예시)
+ 			UPDATE ${tableName}
+ 			SET ${columnName} = #{value}, ${columnName} = #{value}
+ 	 -->
+ </mapper>
