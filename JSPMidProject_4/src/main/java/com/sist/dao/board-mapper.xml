@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.board-mapper">
+	<!-- 목록 출력 -->	
+	<select id="boardListData" resultType="BoardVO" parameterType="hashmap">
+		SELECT no, subject, name, regdate, hit, num 
+		FROM (SELECT no, subject, name, regdate, hit, rownum as num 
+		FROM (SELECT no, subject, name, regdate, hit 
+		FROM board ORDER BY no DESC)) 
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 총페이지 구하기 -->
+	<select id="boardTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*) / 10.0) 
+		FROM board
+	</select>
+	<!-- 데이터 추가(글 작성) -->
+	<insert id="boardInsert" parameterType="BoardVO">
+		<!-- MyBatis SEQUENCE 자동 증가 번호 -->
+		<selectKey keyProperty="no" resultType="int" order="BEFORE"><!-- BEFORE 먼저 실행 -->
+			SELECT NVL(MAX(no) + 1, 1) as no FROM board
+		</selectKey>
+		INSERT INTO board VALUES(#{no}, #{name}, #{subject}, #{content}, #{pwd}, SYSDATE, 0)
+		<!-- #{name} -> vo.getName() -->
+	</insert>
+	<!-- 조회수 증가 -->
+	<!-- 상세보기 -->
+	<!-- 삭제 -->
+	<!-- 수정 -->
+</mapper>
