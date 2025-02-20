@@ -5,4 +5,4 @@ import com.sist.ann.Controller;
 @Controller
 public class SeoulModel {
 
-}
+} 
