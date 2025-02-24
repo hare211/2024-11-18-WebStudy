@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sist.mapper.food-mapper">
+ 	<select id="foodTop12" resultType="FoodVO" parameterType="string"> 
+ 		SELECT fno, poster, name, rownum 
+ 		FROM (SELECT fno, poster, name 
+ 		      FROM food_menupan ORDER BY ${column} DESC) 
+ 		WHERE rownum &lt;= 12
+ 	</select>
+	<select id="foodListData" resultType="FoodVO" parameterType="hashmap">
+		SELECT fno, poster, name, num 
+		FROM (SELECT fno, poster, name, rownum as num 
+		      FROM (SELECT /*+ INDEX_ASC(food_menupan fm_fno_pk) */ fno, poster, name 
+		            FROM food_menupan))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="foodTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*) / 20.0) 
+		FROM food_menupan
+	</select>
+	<update id="hitIncrement" parameterType="int">
+		UPDATE food_menupan 
+		SET hit = hit + 1 
+		WHERE fno = #{fno}
+	</update>
+	<select id="foodDetailData" resultType="FoodVO" parameterType="int">
+		SELECT * 
+		FROM food_menupan 
+		WHERE fno = #{fno}
+	</select>
+ </mapper>
