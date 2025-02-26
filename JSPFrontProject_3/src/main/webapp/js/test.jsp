@@ -37,7 +37,7 @@
 	<input type="button" value="대실" id="Time">
 	<input type="button" value="숙박" id="Stay">
 	<input type="text" id="reserveDate" placeholder="날짜 및 시간 선택" size="30">
-	<span id="schedule">테스트</span>
+	<span id="schedule">일정 출력창</span>
 	
 <script>
 /*
