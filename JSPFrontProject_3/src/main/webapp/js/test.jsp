@@ -115,7 +115,7 @@
                     let scheduleText = monthDay + ' ' + time + '(' + weekdayText + ')';
                     $('#schedule').text(scheduleText);
                     //$('#schedule').text(dateStr);
-                }
+                };
             }
         });
     });
