@@ -8,6 +8,8 @@ onload = () => {
 	input.value = '마포';
 	dataRecv("마포", curPage);
 };
+// @ts-check
+/** 검색 함수 */
 function foodFind() {
 	let fd = document.querySelector('#fd').value;
 	if (fd === '') {
@@ -17,6 +19,8 @@ function foodFind() {
 	}
 	dataRecv(fd, 1);
 };
+
+
 /*
 address"서울 마포구 도화동 340"
 content"마포 역에 위치한 즉석 떡볶이 전문점 다락 떡볶이를 소개한다. 멸치육수만을 사용해서 MSG를 전혀 사용하지 않고 깊은 맛을 자랑하며, 단계별로 매운맛의 정도를 정할 수 있다. 매콤한 즉석 떡볶이에 순대, 튀김, 계란, 쫄면, 치즈 사리까지 한가득 듬뿍 담겨서 먹고 난 후 볶음밥까지 먹으면 다락 떡볶이의 진정한 맛을 제대로 느낄 수 있다. 어린아이부터 어른들까지 모두 좋아하는 맛집으로 부담 없이 푸짐하게 즐길 수 있다."
