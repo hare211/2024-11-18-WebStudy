@@ -17,7 +17,7 @@
 </style>
 <script type="text/javascript">
 	function postfind() {
-		open("postfind.do", "postfind", "width=530, height=450, scrollbars=yes");
+		open("postfind.do", "postfind", "width=530 height=450 scrollbars=yes");
 	};
 	
 </script>

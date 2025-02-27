@@ -92,7 +92,7 @@ public class MemberDAO {
 				getConnection();
 				String sql = "SELECT COUNT(*) "
 						   + "FROM zipcode "
-						   + "WHERE dong LIKE '%'||?'%'";
+						   + "WHERE dong LIKE '%'||?||'%'";
 				
 				ps = conn.prepareStatement(sql);
 				

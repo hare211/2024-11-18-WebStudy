@@ -45,7 +45,7 @@
 	<div class="container">
 		<div class="row">
 		<h3 class="text-center">우편번호 검색</h3>
-			<form action="post" action="../js/postfind.do">
+			<form method="post" action="../js/postfind.do">
 			<table class="table">
 				<tr>
 					<td>
