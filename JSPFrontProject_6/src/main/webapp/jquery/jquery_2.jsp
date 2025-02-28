@@ -29,6 +29,7 @@
 				$(this).text(data + "번 li");
 			});
 	});
+	
 </script>
 </head>
 <body>

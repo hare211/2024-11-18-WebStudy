@@ -57,6 +57,27 @@
 				$('#print').text("");
 			}
 		});
+				
+		$('#find').click(function() {
+			let fd = $('#keyword').val();
+			if (fd.trim() === "") {
+				$('#keyword').focus();
+				return;
+			}
+			alert('검색어: ' + fd);
+			$('#keyword').val("");
+		});
+		$('#keyword').keydown(function(e) {
+			if (e.keyCode === 13) { // 키 종류 13: Enter
+				let fd = $('#keyword').val();
+				if (fd.trim() === "") {
+					$('#keyword').focus();
+					return;
+				}
+				alert('검색어: ' + fd);
+				$('#keyword').val("");
+			}
+		});
 	});
 </script>
 </head>
@@ -88,6 +109,9 @@
 					</td>
 				</tr>
 			</table>
+			<h3>KeyEvent</h3>
+			<input type="text" id="keyword" size="15">
+			<input type="button" id="find" class="btn btn-sm btn-info" value="검색">
 		</div>
 	</div>
 </body>
