@@ -19,7 +19,7 @@ public class BasedSyncList {
     
     public static void main(String[] args) {
         int numOfRows = 100;  // 한 페이지에 가져올 데이터의 수
-        int startPage = 18;
+        int startPage = 1;
         int endPage = 30; // 마지막 페이지
 
         for (int pageNo = startPage; pageNo <= endPage; pageNo++) {
@@ -104,33 +104,34 @@ public class BasedSyncList {
 
             // Oracle DB 연결
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-                String sql = "INSERT INTO based_table (addr1, addr2, areacode, cat1, cat2, cat3, contentid, contenttypeid, " +
-                             "createdtime, firstimage, firstimage2, cpyrhtDivCd, mapx, mapy, modifiedtime, sigungucode, tel, title, zipcode) " +
-                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            	String sql = "INSERT INTO based_table (contentid, contenttypeid, title, addr1, addr2, zipcode, areacode, "
+            			+ "sigungucode, tel, cat1, cat2, cat3, createdtime, firstimage, firstimage2, "
+            			+ "cpyrhtDivCd, mapx, mapy, modifiedtime) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     for (int i = 0; i < items.getLength(); i++) {
                         Node item = items.item(i);
 
-                        ps.setString(1, getTagValue("addr1", item)); // 주소 1
-                        ps.setString(2, getTagValue("addr2", item)); // 주소 2
-                        ps.setInt(3, safeParseInt(getTagValue("areacode", item))); // 지역 코드
-                        ps.setString(4, getTagValue("cat1", item)); // 카테고리 1
-                        ps.setString(5, getTagValue("cat2", item)); // 카테고리 2
-                        ps.setString(6, getTagValue("cat3", item)); // 카테고리 3
-                        ps.setInt(7, safeParseInt(getTagValue("contentid", item))); // 콘텐츠 ID
-                        ps.setInt(8, safeParseInt(getTagValue("contenttypeid", item))); // 콘텐츠 타입 ID
-                        ps.setString(9, getTagValue("createdtime", item)); // 생성 시간
-                        ps.setString(10, getTagValue("firstimage", item)); // 첫 번째 이미지
-                        ps.setString(11, getTagValue("firstimage2", item)); // 두 번째 이미지
-                        ps.setString(12, getTagValue("cpyrhtDivCd", item)); // 저작권 유형
-                        ps.setDouble(13, safeParseDouble(getTagValue("mapx", item))); // 경도
-                        ps.setDouble(14, safeParseDouble(getTagValue("mapy", item))); // 위도
-                        ps.setString(15, getTagValue("modifiedtime", item)); // 수정 시간
-                        ps.setInt(16, safeParseInt(getTagValue("sigungucode", item))); // 시군구 코드
-                        ps.setString(17, getTagValue("tel", item)); // 전화번호
-                        ps.setString(18, getTagValue("title", item)); // 제목
-                        ps.setString(19, getTagValue("zipcode", item)); // 우편번호
+                        ps.setInt(1, safeParseInt(getTagValue("contentid", item))); // 콘텐츠 ID
+                        ps.setInt(2, safeParseInt(getTagValue("contenttypeid", item))); // 콘텐츠 타입 ID
+                        ps.setString(3, getTagValue("title", item)); // 제목
+                        ps.setString(4, getTagValue("addr1", item)); // 주소 1
+                        ps.setString(5, getTagValue("addr2", item)); // 주소 2
+                        ps.setString(6, getTagValue("zipcode", item)); // 우편번호
+                        ps.setInt(7, safeParseInt(getTagValue("areacode", item))); // 지역 코드
+                        ps.setInt(8, safeParseInt(getTagValue("sigungucode", item))); // 시군구 코드
+                        ps.setString(9, getTagValue("tel", item)); // 전화번호
+                        ps.setString(10, getTagValue("cat1", item)); // 카테고리 1
+                        ps.setString(11, getTagValue("cat2", item)); // 카테고리 2
+                        ps.setString(12, getTagValue("cat3", item)); // 카테고리 3
+                        ps.setString(13, getTagValue("createdtime", item)); // 생성 시간
+                        ps.setString(14, getTagValue("firstimage", item)); // 첫 번째 이미지
+                        ps.setString(15, getTagValue("firstimage2", item)); // 두 번째 이미지
+                        ps.setString(16, getTagValue("cpyrhtDivCd", item)); // 저작권 유형
+                        ps.setDouble(17, safeParseDouble(getTagValue("mapx", item))); // 경도
+                        ps.setDouble(18, safeParseDouble(getTagValue("mapy", item))); // 위도
+                        ps.setString(19, getTagValue("modifiedtime", item)); // 수정 시간
 
                         ps.executeUpdate();
                         count++;
