@@ -6,6 +6,8 @@ import javax.xml.xpath.*;
 import java.io.*;
 import java.net.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BasedSyncList {
     private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D";
@@ -17,16 +19,18 @@ public class BasedSyncList {
     
     static int count = 0;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int numOfRows = 100;  // 한 페이지에 가져올 데이터의 수
-        int startPage = 1;
-        int endPage = 30; // 마지막 페이지
+        int startPage = 17;
+        int endPage = 46; // 마지막 페이지
+        
 
         for (int pageNo = startPage; pageNo <= endPage; pageNo++) {
             String xml = fetchTourData(numOfRows, pageNo);
             if (xml != null && !xml.isEmpty()) {
                 parseAndInsert(xml);
                 System.out.println("CurrentPage: " + pageNo);
+                Thread.sleep(1000);
             } else {
                 System.out.println("페이지 " + pageNo + " 데이터 없음.");
             }
@@ -38,6 +42,7 @@ public class BasedSyncList {
         try {
             StringBuilder urlBuilder = new StringBuilder(BASE_URL);
             /*
+             	**** 행사 / 축제 ****
              	https://apis.data.go.kr/B551011/KorService1/areaBasedSyncList1
              	?numOfRows=100
              	&MobileOS=etc
@@ -46,7 +51,28 @@ public class BasedSyncList {
              	&listYN=Y
              	&arrange=O
              	&contentTypeId=15
+             	**** 숙박 ****
+             	https://apis.data.go.kr/B551011/KorService1/searchStay1
+             	?numOfRows=1
+             	&pageNo=1
+             	&MobileOS=etc
+             	&MobileApp=test
+             	&listYN=Y
+             	&arrange=O
+             	&serviceKey=NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D
              */
+            /*
+            //**** 숙박 ****
+            urlBuilder.append("?numOfRow=").append(numOfRows)
+            		  .append("&pageNo=").append(pageNo)
+            		  .append("&MobileOS=etc")
+            		  .append("&MobileApp=test")
+            		  .append("&listYN=Y")
+            		  .append("&arrange=O")
+            		  .append("&serviceKey=").append(SERVICE_KEY);
+             */
+            
+            //**** 행사 / 축제 ****
             urlBuilder.append("?numOfRows=").append(numOfRows)
                       .append("&pageNo=").append(pageNo)
                       .append("&MobileOS=ETC")
@@ -55,7 +81,7 @@ public class BasedSyncList {
                       .append("&listYN=Y")
                       .append("&arrange=O")
                       .append("&contentTypeId=15");
-
+			
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -104,34 +130,48 @@ public class BasedSyncList {
 
             // Oracle DB 연결
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            	String sql = "INSERT INTO based_table (contentid, contenttypeid, title, addr1, addr2, zipcode, areacode, "
-            			+ "sigungucode, tel, cat1, cat2, cat3, createdtime, firstimage, firstimage2, "
-            			+ "cpyrhtDivCd, mapx, mapy, modifiedtime) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            	/*
+            	 	content_id NUMBER,
+				    title VARCHAR2(150),
+				    contenttype_id NUMBER,
+				    addr1 VARCHAR2(500),
+				    addr2 VARCHAR2(500),
+				    zipcode VARCHAR(10),
+				    sigungucode NUMBER,
+				    areacode NUMBER,
+				    first_image VARCHAR2(1000),
+				    first_image2 VARCHAR2(1000),
+				    mapx NUMBER(15, 10),
+				    mapy NUMBER(15, 10),
+				    tel VARCHAR2(400),
+				    cat1 VARCHAR2(50),
+				    cat2 VARCHAR2(50),
+				    cat3 VARCHAR2(50)
+            	 */
+            	String sql = "INSERT INTO content (content_id, title, contenttype_id, addr1, addr2, zipcode, sigungucode, areacode, "
+            			+ "first_image, first_image2, mapx, mapy, tel, cat1, cat2, cat3) "
+            			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     for (int i = 0; i < items.getLength(); i++) {
                         Node item = items.item(i);
 
                         ps.setInt(1, safeParseInt(getTagValue("contentid", item))); // 콘텐츠 ID
-                        ps.setInt(2, safeParseInt(getTagValue("contenttypeid", item))); // 콘텐츠 타입 ID
-                        ps.setString(3, getTagValue("title", item)); // 제목
+                        ps.setString(2, getTagValue("title", item)); // 제목
+                        ps.setInt(3, safeParseInt(getTagValue("contenttypeid", item))); // 콘텐츠 타입 ID
                         ps.setString(4, getTagValue("addr1", item)); // 주소 1
                         ps.setString(5, getTagValue("addr2", item)); // 주소 2
                         ps.setString(6, getTagValue("zipcode", item)); // 우편번호
-                        ps.setInt(7, safeParseInt(getTagValue("areacode", item))); // 지역 코드
-                        ps.setInt(8, safeParseInt(getTagValue("sigungucode", item))); // 시군구 코드
-                        ps.setString(9, getTagValue("tel", item)); // 전화번호
-                        ps.setString(10, getTagValue("cat1", item)); // 카테고리 1
-                        ps.setString(11, getTagValue("cat2", item)); // 카테고리 2
-                        ps.setString(12, getTagValue("cat3", item)); // 카테고리 3
-                        ps.setString(13, getTagValue("createdtime", item)); // 생성 시간
-                        ps.setString(14, getTagValue("firstimage", item)); // 첫 번째 이미지
-                        ps.setString(15, getTagValue("firstimage2", item)); // 두 번째 이미지
-                        ps.setString(16, getTagValue("cpyrhtDivCd", item)); // 저작권 유형
-                        ps.setDouble(17, safeParseDouble(getTagValue("mapx", item))); // 경도
-                        ps.setDouble(18, safeParseDouble(getTagValue("mapy", item))); // 위도
-                        ps.setString(19, getTagValue("modifiedtime", item)); // 수정 시간
+                        ps.setInt(7, safeParseInt(getTagValue("sigungucode", item))); // 시군구 코드
+                        ps.setInt(8, safeParseInt(getTagValue("areacode", item))); // 지역 코드
+                        ps.setString(9, getTagValue("firstimage", item)); // 첫 번째 이미지
+                        ps.setString(10, getTagValue("firstimage2", item)); // 두 번째 이미지
+                        ps.setDouble(11, safeParseDouble(getTagValue("mapx", item))); // 경도
+                        ps.setDouble(12, safeParseDouble(getTagValue("mapy", item))); // 위도
+                        ps.setString(13, getTagValue("tel", item)); // 전화번호
+                        ps.setString(14, getTagValue("cat1", item)); // 카테고리 1
+                        ps.setString(15, getTagValue("cat2", item)); // 카테고리 2
+                        ps.setString(16, getTagValue("cat3", item)); // 카테고리 3
 
                         ps.executeUpdate();
                         count++;

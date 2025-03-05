@@ -81,4 +81,20 @@ public class EmpModel {
 			ex.printStackTrace();
 		}
 	}
+	@RequestMapping("emp/join.do")
+	public static String emp_join(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<EmpVO> list = EmpDAO.empDeptJoinData();
+		request.setAttribute("list", list);
+		
+		return "../emp/join.jsp";
+	}
+	@RequestMapping("emp/sub.do")
+	public static String emp_sub(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<EmpVO> list = EmpDAO.empDeptSubqueryData();
+		request.setAttribute("list", list);
+		
+		return "../emp/sub.jsp";
+	}
 }

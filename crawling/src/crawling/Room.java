@@ -78,11 +78,11 @@ public class Room {
     public static List<Integer> getContentIdsFromDB() {
         List<Integer> contentIds = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "SELECT contentid FROM hotel ORDER BY contentid ASC";  // hotel 테이블에서 contentid 조회
+            String sql = "select content_id FROM content WHERE contenttype_id = 32 ORDER BY content_id ASC;"; 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    contentIds.add(rs.getInt("contentid"));
+                    contentIds.add(rs.getInt("content_id"));
                 }
             }
         } catch (Exception e) {

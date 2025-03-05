@@ -34,4 +34,16 @@ public class EmpDAO {
 		session.close();
 		return list;
 	}
+	public static List<EmpVO> empDeptJoinData() {
+		SqlSession session = ssf.openSession();
+		List<EmpVO> list = session.selectList("empDeptJoinData");
+		session.close();
+		return list;
+	}
+	public static List<EmpVO> empDeptSubqueryData() {
+		SqlSession session = ssf.openSession();
+		List<EmpVO> list = session.selectList("empDeptSubqueryData");
+		session.close();
+		return list;
+	}
 }
