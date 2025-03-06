@@ -40,7 +40,6 @@
 
     <jsp:include page="../main/header.jsp"></jsp:include>
 
-    
     <jsp:include page="${main_jsp }"></jsp:include>
     
     <!-- ****** Cookie ****** -->

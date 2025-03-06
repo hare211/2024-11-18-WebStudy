@@ -54,8 +54,7 @@
 					<div class="row">
 
 						<!-- Single Post -->
-						<c:forEach var="vo" items="${fList }" varStatus="s">
-						<c:if test="${s.index < 4 }">
+						
 						<div class="col-12">
 							<div class="single-post wow fadeInUp" data-wow-delay=".2s">
 								<!-- Post Thumb -->
@@ -99,153 +98,21 @@
 								</div>
 							</div>
 						</div>
-						</c:if>
-						</c:forEach>
+						
 						
 
 						<!-- ******* List Blog Area Start ******* -->
 
-						<!-- Single Post -->
-						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
-								<!-- Post Thumb -->
-								<div class="post-thumb">
-									<img src="../img/blog-img/6.jpg" alt="">
-								</div>
-								<!-- Post Content -->
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											<!-- Post Author -->
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											<!-- Post Date -->
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										<!-- Post Comment & Share Area -->
-										<div class="post-comment-share-area d-flex">
-											<!-- Post Favourite -->
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
-											</div>
-											<!-- Post Comments -->
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											<!-- Post Share -->
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">The 10 Best Bars By The Seaside In Blackpool, UK</h4>
-									</a>
-									<p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-									<a href="#" class="read-more">Continue Reading..</a>
-								</div>
-							</div>
-						</div>
+						
 
 						<!-- Single Post -->
-						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".4s">
-								<!-- Post Thumb -->
-								<div class="post-thumb">
-									<img src="../img/blog-img/7.jpg" alt="">
-								</div>
-								<!-- Post Content -->
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											<!-- Post Author -->
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											<!-- Post Date -->
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										<!-- Post Comment & Share Area -->
-										<div class="post-comment-share-area d-flex">
-											<!-- Post Favourite -->
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
-											</div>
-											<!-- Post Comments -->
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											<!-- Post Share -->
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">How To Get a Narcissist to Feel Empathy</h4>
-									</a>
-									<p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-									<a href="#" class="read-more">Continue Reading..</a>
-								</div>
-							</div>
-						</div>
-
-						<!-- Single Post -->
-						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".6s">
-								<!-- Post Thumb -->
-								<div class="post-thumb">
-									<img src="../img/blog-img/8.jpg" alt="">
-								</div>
-								<!-- Post Content -->
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											<!-- Post Author -->
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											<!-- Post Date -->
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										<!-- Post Comment & Share Area -->
-										<div class="post-comment-share-area d-flex">
-											<!-- Post Favourite -->
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
-											</div>
-											<!-- Post Comments -->
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											<!-- Post Share -->
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">Bristol's 10 Amazing Weekend Brunches And Late Breakfasts</h4>
-									</a>
-									<p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-									<a href="#" class="read-more">Continue Reading..</a>
-								</div>
-							</div>
-						</div>
-
-						<!-- Single Post -->
+						<c:forEach var="vo" items="${fList }" varStatus="s">
+						<c:if test="${s.index > 3 }">
 						<div class="col-12">
 							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".8s">
 								<!-- Post Thumb -->
 								<div class="post-thumb">
-									<img src="../img/blog-img/9.jpg" alt="">
+									<img src="https://www.menupan.com${vo.poster }" alt="">
 								</div>
 								<!-- Post Content -->
 								<div class="post-content">
@@ -253,22 +120,22 @@
 										<div class="post-author-date-area d-flex">
 											<!-- Post Author -->
 											<div class="post-author">
-												<a href="#">By Marian</a>
+												<a href="#">${vo.type }</a>
 											</div>
 											<!-- Post Date -->
 											<div class="post-date">
-												<a href="#">May 19, 2017</a>
+												<a href="#">${vo.score }</a>
 											</div>
 										</div>
 										<!-- Post Comment & Share Area -->
 										<div class="post-comment-share-area d-flex">
 											<!-- Post Favourite -->
 											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>${vo.likecount }</a>
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>${vo.replycount }</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
@@ -277,14 +144,15 @@
 										</div>
 									</div>
 									<a href="#">
-										<h4 class="post-headline">10 Of The Best Places To Eat In Liverpool, England</h4>
+										<h4 class="post-headline">${vo.name }</h4>
 									</a>
-									<p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+									<p>${vo.theme }</p>
 									<a href="#" class="read-more">Continue Reading..</a>
 								</div>
 							</div>
 						</div>
-
+				</c:if>
+				</c:forEach>
 					</div>
 				</div>
 

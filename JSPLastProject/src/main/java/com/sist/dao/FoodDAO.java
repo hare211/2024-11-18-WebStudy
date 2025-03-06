@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -26,5 +27,17 @@ public class FoodDAO {
 		List<FoodVO> list = session.selectList("foodMainHouseData8");
 		session.close();
 		return list;
+	}
+	public static List<FoodVO> foodListData(Map<String, Integer> map) {
+		SqlSession session = ssf.openSession();
+		List<FoodVO> list = session.selectList("foodListData", map);
+		session.close();
+		return list;
+	}
+	public static int foodTotalPage() {
+		SqlSession session = ssf.openSession();
+		int total = session.selectOne("foodTotalPage");
+		session.close();
+		return total;
 	}
 }

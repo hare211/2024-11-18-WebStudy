@@ -28,13 +28,15 @@ import org.w3c.dom.NodeList;
 import java.util.*;
 
 public class Room {
-	//private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D"; // 김기현
+	private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D"; // 김기현
 	//private static final String SERVICE_KEY = "765culrxSZiwbitzvOE7ivNnVycuS2XjHIdKoT0qNzo6EBctNdDnNLfYatyeMot4fjpvFMchhzqtdsXNqfVW6w=="; // 김나린
-	private static final String SERVICE_KEY = "sG7+6n0dJE35jeE8/6e+TnIXB9exmJGPv7oN7J748WemRXlEKbpyKaXKBMpakA5lJ2kpDEKH4YiXyqYU/NOiXQ=="; // 김준홍
+	//private static final String SERVICE_KEY = "sG7+6n0dJE35jeE8/6e+TnIXB9exmJGPv7oN7J748WemRXlEKbpyKaXKBMpakA5lJ2kpDEKH4YiXyqYU/NOiXQ=="; // 김준홍
+	//private static final String SERVICE_KEY = "8dk3iXDfjmaOx0J4oq9d0L3tydEBbhlKmbljieCGdczc0DCNLbmholv/Ynw62iIUxh5fDEW0+cRR57aC83QTmA=="; // 방다혜
+	//private static final String SERVICE_KEY = "SMiQJ/XxTL7+UI9iiszkSfrPNmZGONrDLzkkh9yUxDZ8MNXVM0BMN2wcXBORvkmr6GZRSB3OESZMDqAbVaobnw=="; // 김채연
     private static final String BASE_URL = "https://apis.data.go.kr/B551011/KorService1/detailInfo1";
 
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String DB_USER = "hr";
+    private static final String DB_URL = "jdbc:oracle:thin:@211.238.142.124:1521:XE";
+    private static final String DB_USER = "hr_2";
     private static final String DB_PASSWORD = "happy";
     
     static int count = 0;
@@ -45,18 +47,18 @@ public class Room {
 			System.out.println("contentid: " + contentid);
 		}
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // DB에서 contentid 목록을 조회
     	List<Integer> contentIds = getContentIdsFromDB();
         int lastProcessedContentId = loadLastProcessedContentId(); // 🔹 마지막 성공한 contentid 불러오기
 
-        System.out.println("📌 마지막으로 처리된 contentid: " + lastProcessedContentId);
+        System.out.println("마지막으로 처리된 contentid: " + lastProcessedContentId);
 
         boolean startProcessing = (lastProcessedContentId == 0); // 처음 실행이면 true
         for (int contentid : contentIds) {
             if (!startProcessing) {
                 if (contentid == lastProcessedContentId) {
-                    startProcessing = true; // 🔹 저장된 contentid 이후부터 실행
+                    startProcessing = true; // 저장된 contentid 이후부터 실행
                 }
                 System.out.println("pass");
                 continue;
@@ -65,10 +67,11 @@ public class Room {
             String xml = fetchTourData(contentid);
             if (xml != null && !xml.isEmpty()) {
                 parseAndInsert(xml);
-                saveLastProcessedContentId(contentid); // 🔹 성공한 contentid 저장
-                System.out.println("✅ contentid: " + contentid + " 데이터 처리 완료");
+                saveLastProcessedContentId(contentid); // 성공한 contentid 저장
+                System.out.println("contentid: " + contentid + " 데이터 처리 완료");
+                Thread.sleep(1000);
             } else {
-                System.out.println("❌ contentid: " + contentid + " 데이터 없음.");
+                System.out.println("contentid: " + contentid + " 데이터 없음.");
             }
         }
         
@@ -78,7 +81,7 @@ public class Room {
     public static List<Integer> getContentIdsFromDB() {
         List<Integer> contentIds = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "select content_id FROM content WHERE contenttype_id = 32 ORDER BY content_id ASC;"; 
+            String sql = "select content_id FROM content WHERE contenttype_id = 32 ORDER BY content_id ASC"; 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -102,8 +105,9 @@ public class Room {
          	https://apis.data.go.kr/B551011/KorService1/detailInfo1
          	?MobileOS=etc
          	&MobileApp=test
-         	&contentId=2804387
+         	&contentId=1882595
          	&contentTypeId=32
+         	&numOfRows=1
          	&serviceKey=NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D
          */
             urlBuilder.append("?MobileOS=ETC")
@@ -111,7 +115,7 @@ public class Room {
                       .append("&contentId=").append(contentid)
                       .append("&contentTypeId=32")
                       .append("&serviceKey=").append(SERVICE_KEY);
-
+            //System.out.println("urlBuilder: " + urlBuilder); // URL
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -134,7 +138,7 @@ public class Room {
             // 요청 횟수 및 응답 확인
             String responseStr = response.toString();
             if (responseStr.contains("LIMITED_NUMBER_OF_SERVICE_REQUESTS_EXCEEDS_ERROR")) {
-                System.out.println("🚨 요청 제한 초과! " + requestCount + "번째 요청에서 발생");
+                System.out.println("요청 제한 초과! " + requestCount + "번째 요청에서 발생");
                 System.exit(0);
             }
 
@@ -172,7 +176,7 @@ public class Room {
 
             // Oracle DB 연결
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            	String sql = "INSERT INTO hotel_room (room_id, contentid, roomtitle, roomsize1, roomsize2, roombasecount, "
+            	String sql = "INSERT INTO hotel_room (room_id, content_id, roomtitle, roomsize1, roomsize2, roombasecount, "
             	        + "offseason_minfee1, offseason_minfee2, peakseason_minfee1, peakseason_minfee2, roomintro, "
             	        + "bathfacility, bath, aircondition, tv, pc, internet, refrigerator, hairdryer, "
             	        + "img1, img1alt, img2, img2alt, img3, img3alt) "
@@ -247,7 +251,7 @@ public class Room {
         }
         return "N/A";
     }
- // 🔹 성공한 contentid 저장
+ // 성공한 contentid 저장
     private static void saveLastProcessedContentId(int contentid) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("last_contentid.txt"))) {
             writer.write(String.valueOf(contentid));
@@ -256,7 +260,7 @@ public class Room {
         }
     }
 
-    // 🔹 저장된 contentid 불러오기
+    // 저장된 contentid 불러오기
     private static int loadLastProcessedContentId() {
         File file = new File("last_contentid.txt");
         if (!file.exists()) return 0; // 파일이 없으면 처음부터 실행

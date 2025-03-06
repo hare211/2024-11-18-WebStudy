@@ -13,7 +13,7 @@ public class BasedSyncList {
     private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D";
     private static final String BASE_URL = "https://apis.data.go.kr/B551011/KorService1/areaBasedList1";
 
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:xe";
+    private static final String DB_URL = "jdbc:oracle:thin:@211.238.142.124:1521:XE";
     private static final String DB_USER = "hr";
     private static final String DB_PASSWORD = "happy";
     
