@@ -1,5 +1,9 @@
 package com.sist.vo;
 
-public class SeoulVO {
+import lombok.Data;
 
+@Data
+public class SeoulVO {
+	private int no, hit, likecount, replycount;
+	private String title, poster, msg, address;
 }

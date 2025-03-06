@@ -3,12 +3,14 @@ package com.sist.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.FoodDAO;
 import com.sist.vo.FoodVO;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 // JSP(디자인) -> Model -> DAO -> Model -> JSP
@@ -47,6 +49,50 @@ public class FoodModel {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("main_jsp", "../food/food_list.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("food/food_detail_before.do")
+	public String food_detail_before(HttpServletRequest request, HttpServletResponse response) {
+		String fno = request.getParameter("fno");
+		
+		Cookie cookie = new Cookie("food_" + fno, fno);
+		cookie.setPath("/");
+		cookie.setMaxAge(60 * 60 * 24);
+		
+		// 전송
+		response.addCookie(cookie);
+		
+		return "food_detail.do?fno=" + fno;
+	}
+	
+	@RequestMapping("food/food_detail.do")
+	public String food_detail(HttpServletRequest request, HttpServletResponse response) {
+		String fno = request.getParameter("fno");
+		FoodVO vo = FoodDAO.foodDetailData(Integer.parseInt(fno));
+		String addr1 = vo.getAddress().trim();
+		/*
+		addr1 = addr1.trim().substring(addr1.indexOf(" "));
+		String addr2 = addr1.trim().substring(addr1.indexOf(" "));
+		String addr3 = addr2.trim().substring(0, addr2.indexOf(" "));
+		*/
+		/*
+		 	String addr = vo.getAddress();
+		 	addr = addr.substring(addr.trim().indexOf(" "));
+		 	String addr1 = addr.trim();
+		 	addr1 = addr1.substring(addr1.trim().indexOf(" "));
+		 	String addr2 = addr1.trim();
+		 	addr2 = addr2.substring(0, addr2.indexOf(" "));
+		 */
+		// 강원 -> s1 양양군 -> s2 양양읍 -> addr3 연창리 180-108
+		StringTokenizer st = new StringTokenizer(addr1);
+		String s1 = st.nextToken();
+		String s2 = st.nextToken();
+		String addr3 = st.nextToken();
+		request.setAttribute("vo", vo);
+		request.setAttribute("addr", addr3.trim());
+		request.setAttribute("main_jsp", "../food/food_detail.jsp");
+		
 		return "../main/main.jsp";
 	}
 }
