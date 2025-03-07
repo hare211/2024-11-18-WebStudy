@@ -150,7 +150,7 @@ public class BasedSyncList {
             	 */
             	String sql = "INSERT INTO content (content_id, title, contenttype_id, addr1, addr2, zipcode, sigungucode, areacode, "
             			+ "first_image, first_image2, mapx, mapy, tel, cat1, cat2, cat3) "
-            			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // overview 넣기
                 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     for (int i = 0; i < items.getLength(); i++) {
