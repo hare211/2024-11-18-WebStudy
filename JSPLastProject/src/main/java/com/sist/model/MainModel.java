@@ -40,6 +40,7 @@ public class MainModel {
 		}
 		request.setAttribute("cList", cList);
 		request.setAttribute("main_jsp", "../main/home.jsp");
+		// include -> 파일에서 request 를 공유할 수 있다 / home.jsp, main.jsp 에서 공유 가능
 		  // 화면 변경
 		return "../main/main.jsp";
 	}
