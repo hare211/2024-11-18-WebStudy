@@ -28,11 +28,16 @@ import org.w3c.dom.NodeList;
 import java.util.*;
 
 public class Room {
-	private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D"; // 김기현
+	//private static final String SERVICE_KEY = "NhaEjaIw4x6+YcgsO33ZBENWFUl8t9rR+BJILNYRY8xpFq3CNUn/pyQ/Wh/61wynoAMKu6U8KYX+wf2UhTQLFw=="; // 김기현
+	//private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D"; // 김기현
 	//private static final String SERVICE_KEY = "765culrxSZiwbitzvOE7ivNnVycuS2XjHIdKoT0qNzo6EBctNdDnNLfYatyeMot4fjpvFMchhzqtdsXNqfVW6w=="; // 김나린
+	//private static final String SERVICE_KEY = "765culrxSZiwbitzvOE7ivNnVycuS2XjHIdKoT0qNzo6EBctNdDnNLfYatyeMot4fjpvFMchhzqtdsXNqfVW6w%3D%3D"; // 김나린
 	//private static final String SERVICE_KEY = "sG7+6n0dJE35jeE8/6e+TnIXB9exmJGPv7oN7J748WemRXlEKbpyKaXKBMpakA5lJ2kpDEKH4YiXyqYU/NOiXQ=="; // 김준홍
+	//private static final String SERVICE_KEY = "sG7%2B6n0dJE35jeE8%2F6e%2BTnIXB9exmJGPv7oN7J748WemRXlEKbpyKaXKBMpakA5lJ2kpDEKH4YiXyqYU%2FNOiXQ%3D%3D"; // 김준홍
 	//private static final String SERVICE_KEY = "8dk3iXDfjmaOx0J4oq9d0L3tydEBbhlKmbljieCGdczc0DCNLbmholv/Ynw62iIUxh5fDEW0+cRR57aC83QTmA=="; // 방다혜
+	//private static final String SERVICE_KEY = "8dk3iXDfjmaOx0J4oq9d0L3tydEBbhlKmbljieCGdczc0DCNLbmholv%2FYnw62iIUxh5fDEW0%2BcRR57aC83QTmA%3D%3D"; // 방다혜
 	//private static final String SERVICE_KEY = "SMiQJ/XxTL7+UI9iiszkSfrPNmZGONrDLzkkh9yUxDZ8MNXVM0BMN2wcXBORvkmr6GZRSB3OESZMDqAbVaobnw=="; // 김채연
+	private static final String SERVICE_KEY = "SMiQJ%2FXxTL7%2BUI9iiszkSfrPNmZGONrDLzkkh9yUxDZ8MNXVM0BMN2wcXBORvkmr6GZRSB3OESZMDqAbVaobnw%3D%3D"; // 김채연
     private static final String BASE_URL = "https://apis.data.go.kr/B551011/KorService1/detailInfo1";
 
     private static final String DB_URL = "jdbc:oracle:thin:@211.238.142.124:1521:XE";
@@ -69,7 +74,7 @@ public class Room {
                 parseAndInsert(xml);
                 saveLastProcessedContentId(contentid); // 성공한 contentid 저장
                 System.out.println("contentid: " + contentid + " 데이터 처리 완료");
-                Thread.sleep(1000);
+                //Thread.sleep(1000);
             } else {
                 System.out.println("contentid: " + contentid + " 데이터 없음.");
             }
@@ -185,7 +190,10 @@ public class Room {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     for (int i = 0; i < items.getLength(); i++) {
                         Node item = items.item(i);
-
+                        
+                        
+                        
+                        
                         ps.setInt(1, safeParseInt(getTagValue("contentid", item)));
                         ps.setString(2, getTagValue("roomtitle", item));
                         ps.setInt(3, safeParseInt(getTagValue("roomsize1", item)));
@@ -241,14 +249,40 @@ public class Room {
         }
     }
 
-    // XML 태그 값을 가져오는 메서드
+ // XML 태그 값을 가져오는 메서드
     private static String getTagValue(String tag, Node item) {
         Element element = (Element) item;
         NodeList nList = element.getElementsByTagName(tag);
+        
+        // 이미지 URL과 이미지 설명을 기본값으로 설정
+        String defaultImageUrl = "http://tong.visitkorea.or.kr/cms/resource/96/1358996_image2_1.jpg";
+        String defaultImageAlt = "서울 강남구_트리아관광호텔_스탠다드_1";
+        
         if (nList.getLength() > 0) {
             String value = nList.item(0).getTextContent().trim();
-            return (value != null && !value.isEmpty()) ? value : "N/A";
+            
+            // img1, img2, img3일 경우 기본값 처리
+            if (tag.equals("roomimg1") || tag.equals("roomimg2") || tag.equals("roomimg3")) {
+                return (value.isEmpty() || value.equals("null")) ? defaultImageUrl : value;
+            }
+            
+            // img1alt, img2alt, img3alt일 경우 기본값 처리
+            if (tag.equals("roomimg1alt") || tag.equals("roomimg2alt") || tag.equals("roomimg3alt")) {
+                return (value.isEmpty() || value.equals("null")) ? defaultImageAlt : value;
+            }
+            
+            // 다른 태그는 그냥 반환
+            return value.isEmpty() ? "N/A" : value;
         }
+        
+        // 태그 값이 없으면 기본값 반환
+        if (tag.equals("roomimg1") || tag.equals("roomimg2") || tag.equals("roomimg3")) {
+            return defaultImageUrl;
+        }
+        if (tag.equals("roomimg1alt") || tag.equals("roomimg2alt") || tag.equals("roomimg3alt")) {
+            return defaultImageAlt;
+        }
+        
         return "N/A";
     }
  // 성공한 contentid 저장
