@@ -103,9 +103,13 @@
 								레시피
 								</a>
 									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
-										<a class="dropdown-item" href="index.html">레시피목록</a> 
-										<a class="dropdown-item" href="archive.html">레시피검색</a> 
-										<a class="dropdown-item" href="single.html">쉐프</a> 
+										<%--
+											recipe.list.do	  호출 명령 *.do
+											recipe_find.do -> DispatcherServlet
+										 --%>
+										<a class="dropdown-item" href="../recipe/recipe_list.do">레시피목록</a> 
+										<a class="dropdown-item" href="../recipe/recipe_find.do">레시피검색</a> 
+										<a class="dropdown-item" href="../recipe/chef_list.do">쉐프</a> 
 										<a class="dropdown-item" href="single.html">레시피등록</a> 
 									</div>
 								</li>
