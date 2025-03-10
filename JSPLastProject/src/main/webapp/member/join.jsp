@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../shadow/css/shadowbox.css">
-<link rel="stylesheet" href="../shadow/js/shadowbox.js">
+<script type="text/javascript" src="../shadow/js/shadowbox.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
@@ -14,7 +14,7 @@
 		players:['iframe']
 	})
 	$(function() {
-		$(#idBtn).on('click', function() {
+		$('#idBtn').on('click', function() {
 			Shadowbox.open({
 				content: '../member/idcheck.do', 
 				player: 'iframe',
@@ -25,7 +25,7 @@
 		})
 		
 		$('#postBtn').click(function() {
-			new daum.postcode({
+			new daum.Postcode({
 				oncomplete: function(data) {
 					$('#post').val(data.zonecode);
 					$('#addr1').val(data.address);
@@ -33,7 +33,7 @@
 			}).open()
 		})
 		$('#joinBtn').click(function() {
-			let id = #('#id').val();
+			let id = $('#id').val();
 			if (id.trim() === '') {
 				 alert('ID 중복체크를 해야 됩니다.');
 				 return;
@@ -102,7 +102,7 @@
 					<tr>
 						<th width=15% class="text-center" style="color:gray">ID</th>
 						<td width=85%>
-							<input type="text" name="id" id="id" size="15" class="form-control-sm" readonly>
+							<input type="text" name="id" id="id" size="15" class="form-control-sm">
 							<input type="button" id="idBtn" value="아이디중복체크" class="btn-sm btn-primary">
 						</td>
 					</tr>

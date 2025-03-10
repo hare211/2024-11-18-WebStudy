@@ -9,6 +9,7 @@ import com.sist.vo.MemberVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MemberModel {
@@ -68,6 +69,38 @@ public class MemberModel {
 		vo.setContent(content);
 		
 		MemberDAO.memberInsert(vo);
+		return "redirect:../main/main.do";
+	}
+	@RequestMapping("member/login.do")
+	public String member_login(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "../member/login.jsp";
+	}
+	// 로그인
+	@RequestMapping("member/login_ok.do")
+	public void member_login_ok(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		MemberVO vo = MemberDAO.memberLogin(id, pwd);
+		if (vo.getMsg().equals("OK")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("id", vo.getId());
+			session.setAttribute("name", vo.getName());
+			session.setAttribute("sex", vo.getSex());
+			session.setAttribute("admin", vo.getAdmin());
+		}
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(vo.getMsg());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	@RequestMapping("member/logout.do")
+	public String member_logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		session.invalidate(); // session 에 있는 모든 데이터를 지운다 -> 로그아웃
 		return "redirect:../main/main.do";
 	}
 }

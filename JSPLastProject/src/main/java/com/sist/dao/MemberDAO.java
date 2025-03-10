@@ -26,4 +26,21 @@ public class MemberDAO {
 		session.insert("memberInsert", vo);
 		session.close();
 	}
+	public static MemberVO memberLogin(String id, String pwd) {
+		SqlSession session = ssf.openSession();
+		MemberVO vo = new MemberVO();
+		int count = session.selectOne("memberIdCheckCount", id);
+		if (count == 0) {
+			vo.setMsg("NOID");
+		} else {
+			vo = session.selectOne("memberGetPassword", id);
+			if (pwd.equals(vo.getPwd())) {
+				vo.setMsg("OK");
+			} else {
+				vo.setMsg("NOPWD");
+			}
+		}
+		session.close();
+		return vo;
+	}
 }

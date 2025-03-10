@@ -11,7 +11,7 @@
 	$(function() {
 		$('#checkBtn').click(function() {
 			let id = $('#id').val();
-			if (id.trim() === null '') {
+			if (id.trim() === '') {
 				$('#id').focus();
 				return;
 			}
@@ -19,7 +19,7 @@
 				type: 'post',
 				url: '../member/idcheck_ok.do',
 				data: {'id': id.trim()},
-				success: function(result) {
+				success: function(result) { // Model 의 out.write -> result 안으로 값이 들어옴
 					//alert(result);
 					let count = parseInt(result);
 					if (count === 0) {
