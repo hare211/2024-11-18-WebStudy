@@ -148,30 +148,14 @@ public class BasedSyncList {
 				    cat2 VARCHAR2(50),
 				    cat3 VARCHAR2(50)
             	 */
-            	String sql = "INSERT INTO content (content_id, title, contenttype_id, addr1, addr2, zipcode, sigungucode, areacode, "
-            			+ "first_image, first_image2, mapx, mapy, tel, cat1, cat2, cat3) "
-            			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // overview 넣기
+            	String sql = "UPDATE content SET overview = ? WHERE content_id = ?"; // overview 넣기
                 
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     for (int i = 0; i < items.getLength(); i++) {
                         Node item = items.item(i);
 
-                        ps.setInt(1, safeParseInt(getTagValue("contentid", item))); // 콘텐츠 ID
-                        ps.setString(2, getTagValue("title", item)); // 제목
-                        ps.setInt(3, safeParseInt(getTagValue("contenttypeid", item))); // 콘텐츠 타입 ID
-                        ps.setString(4, getTagValue("addr1", item)); // 주소 1
-                        ps.setString(5, getTagValue("addr2", item)); // 주소 2
-                        ps.setString(6, getTagValue("zipcode", item)); // 우편번호
-                        ps.setInt(7, safeParseInt(getTagValue("sigungucode", item))); // 시군구 코드
-                        ps.setInt(8, safeParseInt(getTagValue("areacode", item))); // 지역 코드
-                        ps.setString(9, getTagValue("firstimage", item)); // 첫 번째 이미지
-                        ps.setString(10, getTagValue("firstimage2", item)); // 두 번째 이미지
-                        ps.setDouble(11, safeParseDouble(getTagValue("mapx", item))); // 경도
-                        ps.setDouble(12, safeParseDouble(getTagValue("mapy", item))); // 위도
-                        ps.setString(13, getTagValue("tel", item)); // 전화번호
-                        ps.setString(14, getTagValue("cat1", item)); // 카테고리 1
-                        ps.setString(15, getTagValue("cat2", item)); // 카테고리 2
-                        ps.setString(16, getTagValue("cat3", item)); // 카테고리 3
+                        ps.setString(2, getTagValue("overview", item));
+                        ps.setInt(2, safeParseInt(getTagValue("contentid", item))); // 콘텐츠 ID
 
                         ps.executeUpdate();
                         count++;
