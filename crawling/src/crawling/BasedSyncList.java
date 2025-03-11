@@ -10,11 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasedSyncList {
-    private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D";
+	//private static final String SERVICE_KEY = "NhaEjaIw4x6+YcgsO33ZBENWFUl8t9rR+BJILNYRY8xpFq3CNUn/pyQ/Wh/61wynoAMKu6U8KYX+wf2UhTQLFw=="; // 김기현
+	private static final String SERVICE_KEY = "NhaEjaIw4x6%2BYcgsO33ZBENWFUl8t9rR%2BBJILNYRY8xpFq3CNUn%2FpyQ%2FWh%2F61wynoAMKu6U8KYX%2Bwf2UhTQLFw%3D%3D"; // 김기현
+	//private static final String SERVICE_KEY = "765culrxSZiwbitzvOE7ivNnVycuS2XjHIdKoT0qNzo6EBctNdDnNLfYatyeMot4fjpvFMchhzqtdsXNqfVW6w=="; // 김나린
+	//private static final String SERVICE_KEY = "765culrxSZiwbitzvOE7ivNnVycuS2XjHIdKoT0qNzo6EBctNdDnNLfYatyeMot4fjpvFMchhzqtdsXNqfVW6w%3D%3D"; // 김나린
+	//private static final String SERVICE_KEY = "sG7+6n0dJE35jeE8/6e+TnIXB9exmJGPv7oN7J748WemRXlEKbpyKaXKBMpakA5lJ2kpDEKH4YiXyqYU/NOiXQ=="; // 김준홍
+	//private static final String SERVICE_KEY = "sG7%2B6n0dJE35jeE8%2F6e%2BTnIXB9exmJGPv7oN7J748WemRXlEKbpyKaXKBMpakA5lJ2kpDEKH4YiXyqYU%2FNOiXQ%3D%3D"; // 김준홍
+	//private static final String SERVICE_KEY = "8dk3iXDfjmaOx0J4oq9d0L3tydEBbhlKmbljieCGdczc0DCNLbmholv/Ynw62iIUxh5fDEW0+cRR57aC83QTmA=="; // 방다혜
+	//private static final String SERVICE_KEY = "8dk3iXDfjmaOx0J4oq9d0L3tydEBbhlKmbljieCGdczc0DCNLbmholv%2FYnw62iIUxh5fDEW0%2BcRR57aC83QTmA%3D%3D"; // 방다혜
+	//private static final String SERVICE_KEY = "SMiQJ/XxTL7+UI9iiszkSfrPNmZGONrDLzkkh9yUxDZ8MNXVM0BMN2wcXBORvkmr6GZRSB3OESZMDqAbVaobnw=="; // 김채연
+	//private static final String SERVICE_KEY = "SMiQJ%2FXxTL7%2BUI9iiszkSfrPNmZGONrDLzkkh9yUxDZ8MNXVM0BMN2wcXBORvkmr6GZRSB3OESZMDqAbVaobnw%3D%3D"; // 김채연
     private static final String BASE_URL = "https://apis.data.go.kr/B551011/KorService1/areaBasedList1";
 
     private static final String DB_URL = "jdbc:oracle:thin:@211.238.142.124:1521:XE";
-    private static final String DB_USER = "hr";
+    private static final String DB_USER = "hr_2";
     private static final String DB_PASSWORD = "happy";
     
     static int count = 0;
@@ -80,7 +89,7 @@ public class BasedSyncList {
                       .append("&serviceKey=").append(SERVICE_KEY)
                       .append("&listYN=Y")
                       .append("&arrange=O")
-                      .append("&contentTypeId=15");
+                      .append("&contentTypeId=39");
 			
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
