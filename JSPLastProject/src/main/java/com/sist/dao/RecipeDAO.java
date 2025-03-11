@@ -85,4 +85,35 @@ public class RecipeDAO {
 		session.close();
 		return total;
 	}
+	/*
+	 	동적 쿼리
+	 	<trim>: 추가 / 제거 -> prefix, suffix, prefixOverrides, suffixOverrides
+	 	<bind>: 변수형, 문장이 긴 경우
+	 		<bind name="likes" value="'%'||#{ss}||'%'">
+	 			#(likes}
+	 	<foreach>
+	 		<foreach collection="arr" item="no"> -> for(int no : arr)
+	 		배열 / 컬렉션 -> 반드시 Map 에 채워서 설정
+	 		arr -> Key, no -> Value
+	 	<where>
+	 		<where>
+	 			<if test="조건"> AND id = #{id} </if>
+	 			<if test="조건"> AND pwd = #{pwd} </if>
+	 		</where>
+	 	<if>
+	 		<if test="id != null> 
+	 	<choose>: 다중 조건문
+	 		<choose>
+		 		<when test=""></when>
+		 		<when test=""></when>
+		 		<otherwise></otherwise>
+	 		</choose>
+	 		
+	 */
+	public static List<RecipeVO> recipeFindData(Map map) {
+		SqlSession session = ssf.openSession();
+		List<RecipeVO> list = session.selectList("recipeFindData", map);
+		session.close();
+		return list;
+	}
 }

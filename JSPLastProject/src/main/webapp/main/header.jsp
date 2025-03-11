@@ -147,7 +147,7 @@
 								커뮤니티
 								</a>
 									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
-										<a class="dropdown-item" href="index.html">자유게시판</a> 
+										<a class="dropdown-item" href="../board/board_list.do">자유게시판</a> 
 										<a class="dropdown-item" href="archive.html">묻고답하기</a> 
 										<a class="dropdown-item" href="single.html">공지사항</a> 
 										<a class="dropdown-item" href="single.html">실시간채팅</a> 
@@ -156,10 +156,10 @@
 								<li class="nav-item"><a class="nav-link" href="#">빠른예약</a></li>
 								<c:if test="${sessionScope.id != null }">
 									<c:if test="${sessionScope.admin == 'n' }">
-										<li class="nav-item"><a class="nav-link" href="contact.html">마이페이지</a></li>
+										<li class="nav-item"><a class="nav-link" href="../mypage/my_main.do">마이페이지</a></li>
 									</c:if>
 									<c:if test="${sessionScope.admin == 'y' }">
-										<li class="nav-item"><a class="nav-link" href="contact.html">관리자페이지</a></li>
+										<li class="nav-item"><a class="nav-link" href="../adminpage/admin_main.do">관리자페이지</a></li>
 									</c:if>
 								</c:if>
 							</ul>

@@ -78,4 +78,29 @@ public class RecipeModel {
 		return "../main/main.jsp";
 	}
 	
+	@RequestMapping("recipe/recipe_find.do")
+	public String recipe_find(HttpServletRequest request, HttpServletResponse response) {
+		String[] findArr = request.getParameterValues("fs");
+		String ss = request.getParameter("ss");
+		if (findArr == null) {
+			findArr = new String[] {"T"};
+		}
+		if (ss == null) {
+			ss = "만개";
+		}
+		Map map = new HashMap();
+		map.put("findArr", findArr);
+		map.put("ss", ss);
+		
+		List<RecipeVO> list = RecipeDAO.recipeFindData(map);
+		
+		
+		request.setAttribute("main_jsp", "../recipe/recipe_find.jsp");
+		// 1. return "../main/main.jsp" -> 화면 이동
+		// 2. return "../food/food.jsp" -> ajax
+		// 3. return redirect:../main/main.do" -> insert or update
+		
+		return "../main/main.jsp";
+	}
+	
 }
