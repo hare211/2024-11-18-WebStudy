@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.emp-mapper">
+	<select id="empGetEnameData" resultType="EmpVO">
+		SELECT empno, ename 
+		FROM emp
+	</select>
+	<!-- 
+		<trim>
+			prefix -> 앞에 추가(WHERE empno IN() 을 추가)
+			suffix -> 뒤에 추가
+			suffixOverrides -> 뒤에 제거
+			prefixOverrides -> 앞에 제거
+			
+			WHERE
+			<bind name="singers" value="'%'||value||'%'"/>
+			<trim preifixOverrides="OR">
+			<if text="column==title">
+				OR title LIKE '%'||value||'%'
+			</if>
+			<if test="column==singer">
+				OR singer LIKE #{singers}
+			</if>
+			</trim>
+			
+			<where>
+				<if test="column==title">
+					OR title LIKE '%'||value||'%' <where> -> OR 자동으로 지워준다
+				</if>
+				<if test="column==singer">
+					OR singer LIKE #{singers}
+				</if>
+			</where>
+				
+	 -->
+	<select id="empFindData" resultType="EmpVO" parameterType="hashmap">
+		SELECT empno, ename, job, sal, TO_CHAR(hiredate, 'YYYY-MM-DD') as dbday
+		FROM emp
+		<trim prefix="WHERE empno IN(" suffix=")" suffixOverrides=")"> <!-- suffix -> for 문 반복 끝난 뒤 ")" 추가 -->
+			<foreach collection="empnos" item="empno" close=")" separator=",">#{empno}</foreach>
+		</trim>
+	</select>
+</mapper>
