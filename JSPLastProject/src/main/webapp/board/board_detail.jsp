@@ -14,11 +14,11 @@
 			if (bClick === false) {
 				bClick = true;
 				$(this).text("취소");
-				$('#delTR').show();
+				$('#delTr').show();
 			} else {
 				bClick = false
 				$(this).text("삭제");
-				$('#delTR').hide();
+				$('#delTr').hide();
 			}
 		});
 		
@@ -46,7 +46,7 @@
 		});
 		
 		$('#delBtn').click(function() {
-			let no = $('#delTR').attr('data-no');
+			let no = $('#delTr').attr('data-no');
 			let page = $('#delTr').attr('data-page');
 			$.ajax({
 				type: 'post',
@@ -125,7 +125,7 @@
            			</tr>
            			<tr>
            				<td colspan="4" class="text-right">
-           					<a href="#" class="btn btn-outline-info btn-xs">수정</a>
+           					<a href="../board/board_update.do?no=${vo.no }&page=${page}" class="btn btn-outline-info btn-xs">수정</a>
            					<span class="btn btn-outline-success btn-xs" id="del">삭제</span>
            					<a href="../board/board_list.do?page=${page }" class="btn btn-outline-warning btn-xs">목록</a>
            				</td>

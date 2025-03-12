@@ -27,7 +27,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">recipe-list Page</li>
+                            <li class="breadcrumb-item active" aria-current="page">board-list Page</li>
                         </ol>
                     </nav>
                 </div>
@@ -39,7 +39,7 @@
     <!-- ****** Archive Area Start ****** -->
     <section class="archive-area section_padding_80">
         <div class="container">
-            <div class="row" style="width:800px; height: 600px; margin: 0px auto">
+            <div class="row" style="width:800px; margin: 0px auto">
             	<table class="table">
             		<tr>
             			<td>
@@ -47,7 +47,7 @@
             			</td>
             		</tr>
             	</table>
-            	<table class="table" style="height: 500px">
+            	<table class="table">
             		<tr>
             			<th width="10%" class="text-center">번호</th>
             			<th width="45%" class="text-center">제목</th>
