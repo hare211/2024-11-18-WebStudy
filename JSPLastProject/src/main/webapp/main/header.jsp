@@ -113,7 +113,9 @@
 									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
 										<a class="dropdown-item" href="../food/food_list.do">맛집목록</a> 
 										<a class="dropdown-item" href="../food/food_find.do">맛집검색</a> 
+										<c:if test="${sessionScope.id != null }">
 										<a class="dropdown-item" href="../reserve/reserve_main.do">맛집예약</a> 
+										</c:if>
 									</div>
 								</li>
 								<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -127,7 +129,9 @@
 										<a class="dropdown-item" href="../recipe/recipe_list.do">레시피목록</a> 
 										<a class="dropdown-item" href="../recipe/recipe_find.do">레시피검색</a> 
 										<a class="dropdown-item" href="../recipe/chef_list.do">쉐프</a> 
+										<c:if test="${sessionScope.id != null }">
 										<a class="dropdown-item" href="single.html">레시피등록</a> 
+										</c:if>
 									</div>
 								</li>
 								<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -148,12 +152,16 @@
 								</a>
 									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
 										<a class="dropdown-item" href="../board/board_list.do">자유게시판</a> 
-										<a class="dropdown-item" href="archive.html">묻고답하기</a> 
 										<a class="dropdown-item" href="single.html">공지사항</a> 
-										<a class="dropdown-item" href="single.html">실시간채팅</a> 
+										<a class="dropdown-item" href="archive.html">묻고답하기</a> 
+										<c:if test="${sessionScope.id != null }">
+											<a class="dropdown-item" href="single.html">실시간채팅</a> 
+										</c:if>
 									</div>
 								</li>
-								<li class="nav-item"><a class="nav-link" href="#">빠른예약</a></li>
+								<c:if test="${sessionScope.id != null }">
+									<li class="nav-item"><a class="nav-link" href="#">빠른예약</a></li>
+								</c:if>
 								<c:if test="${sessionScope.id != null }">
 									<c:if test="${sessionScope.admin == 'n' }">
 										<li class="nav-item"><a class="nav-link" href="../mypage/my_main.do">마이페이지</a></li>
