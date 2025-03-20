@@ -7,6 +7,9 @@
  	<!-- resource: 자신의 폴더 안에 있는 파일 읽기
  		 url: 외부에 있는 경우
  	 -->
+ 	 <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>  
+    </settings>
  		<typeAliases>
  		<!-- 
  			VO 전체를 등록
@@ -20,6 +23,8 @@
  		 	<typeAlias type="com.sist.vo.BoardVO" alias="BoardVO"/>
  		 	<typeAlias type="com.sist.vo.NoticeVO" alias="NoticeVO"/>
  		 	<typeAlias type="com.sist.vo.QnABoardVO" alias="QnABoardVO"/>
+ 		 	<typeAlias type="com.sist.vo.GoodsVO" alias="GoodsVO"/>
+ 		 	<typeAlias type="com.sist.vo.CartVO" alias="CartVO"/>
  		</typeAliases>
  		<environments default="development">
  			<environment id="development">
@@ -41,5 +46,7 @@
  			<mapper resource="com/sist/mapper/board-mapper.xml"/>
  			<mapper resource="com/sist/mapper/notice-mapper.xml"/>
  			<mapper resource="com/sist/mapper/qnaboard-mapper.xml"/>
+ 			<mapper resource="com/sist/mapper/goods-mapper.xml"/>
+ 			<mapper resource="com/sist/mapper/cart-mapper.xml"/>
  		</mappers>
  </configuration>
