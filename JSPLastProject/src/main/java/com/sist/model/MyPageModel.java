@@ -20,14 +20,26 @@ public class MyPageModel {
 		return "../main/main.jsp";
 	}
 	
-	// ===
+	// === 위에서부터 최신화 해야함
 	@RequestMapping("mypage/mypage_cart_list.do")
 	public String mypage_cart_list(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		List<CartVO> list = CartDAO.cartListData(id);
+		request.setAttribute("count", list.size());
 		request.setAttribute("list", list);
 		request.setAttribute("my_jsp", "../cart/cart_list.jsp");
+		request.setAttribute("main_jsp", "../mypage/my_main.jsp");
+		return "../main/main.jsp";
+	}
+	@RequestMapping("mypage/mypage_buy_list.do")
+	public String mypage_buy_list(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		List<CartVO> list = CartDAO.buyListData(id);
+		request.setAttribute("count", list.size());
+		request.setAttribute("list", list);
+		request.setAttribute("my_jsp", "../cart/buy_list.jsp");
 		request.setAttribute("main_jsp", "../mypage/my_main.jsp");
 		return "../main/main.jsp";
 	}

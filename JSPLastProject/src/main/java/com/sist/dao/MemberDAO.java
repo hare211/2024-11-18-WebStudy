@@ -43,4 +43,10 @@ public class MemberDAO {
 		session.close();
 		return vo;
 	}
+	public static MemberVO memberInfoData(String id) {
+		SqlSession session = ssf.openSession();
+		MemberVO vo = session.selectOne("memberInfoData", id);
+		session.close();
+		return vo;
+	}
 }
