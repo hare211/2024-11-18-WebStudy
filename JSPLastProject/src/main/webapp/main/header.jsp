@@ -160,7 +160,7 @@
 									</div>
 								</li>
 								<c:if test="${sessionScope.id != null }">
-									<li class="nav-item"><a class="nav-link" href="#">빠른예약</a></li>
+									<li class="nav-item"><a class="nav-link" href="../reserve/reserve_main.do">빠른예약</a></li>
 								</c:if>
 								<c:if test="${sessionScope.id != null }">
 									<c:if test="${sessionScope.admin == 'n' }">
